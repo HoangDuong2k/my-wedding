@@ -1,22 +1,22 @@
 export const CONFIGURATION = {
   groomFirst: true,
-  groomName: "Minh Nhật",
-  brideName: "Ngọc Yến",
+  groomName: "Thạc Huy",
+  brideName: "Thúy Mây",
   dayOfWeek: "Chủ nhật",
-  day: "16",
-  month: "10",
+  day: "28",
+  month: "12",
   year: "2025",
   mapUrl: "https://maps.app.goo.gl/rW1LCytsJxrzcdWz5?g_st=ipc",
   address: (
     <div>
-      120 Khu Bình Lục Hạ, Phường Đông Triều
+      A3-13 Cổng Chung, Xã Ô Diên, Huyện Đan Phượng
       <br />
-      Tỉnh Quảng Ninh
+      Thành phố Hà Nội
     </div>
   ),
   avatar: "./the_groom_avatar.jpg",
   qr: "QR_banking.jpg",
-  bankAccountName: "Nguyễn Minh Nhật",
-  bankAccountNumber: "nhat1999",
-  bankName: "TPBank",
+  bankAccountName: "Nguyễn Thạc Huy",
+  bankAccountNumber: "1903 6785 2670 15",
+  bankName: "Techcombank",
 };

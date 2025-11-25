@@ -1,26 +1,22 @@
-import type React from "react"
-import type { Metadata } from "next"
-import "./globals.css"
-import { ClientLayout } from "./client-layout"
+import type React from "react";
+import type { Metadata } from "next";
+import "./globals.css";
+import { ClientLayout } from "./client-layout";
 
 export const metadata: Metadata = {
-  title: "Thiệp mời Đám cưới Minh Nhật & Ngọc Yến",
-  description: "26-10-2025 l Chúng mình cưới ♥",
+  title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
+  description: "28-12-2025 l Chúng mình cưới ♥",
   openGraph: {
-    title: "Thiệp mời Đám cưới Minh Nhật & Ngọc Yến",
-    description: "26-10-2025 l Chúng mình cưới ♥",
+    title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
+    description: "28-12-2025 l Chúng mình cưới ♥",
     type: "website",
-    images: [
-      "web-thumb.jpg",
-    ],
+    images: ["web-thumb.jpg"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thiệp mời Đám cưới Minh Nhật & Ngọc Yến",
-    description: "26-10-2025 l Chúng mình cưới ♥",
-    images: [
-      "web-thumb.jpg",
-    ],
+    title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
+    description: "28-12-2025 l Chúng mình cưới ♥",
+    images: ["web-thumb.jpg"],
   },
   icons: {
     icon: [
@@ -31,12 +27,12 @@ export const metadata: Metadata = {
       },
     ],
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -44,5 +40,5 @@ export default function RootLayout({
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
-  )
+  );
 }

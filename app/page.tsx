@@ -129,7 +129,7 @@ export default function WeddingPage() {
   };
 
   // Gift section helpers
-  const bankAccountOwner = "Nguyễn Minh Nhật";
+  const bankAccountOwner = "Nguyễn Thạc Huy";
   const bankAccountNumber = "nhat1999";
   const bankName = "TPBank";
   const qrImageSrc = "/QR_banking.jpg"; // Replace with your QR image path
@@ -319,7 +319,7 @@ export default function WeddingPage() {
                 <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-rose-100 to-pink-100">
                   <img
                     src="the_bride_avatar.jpg"
-                    alt="Ngọc Yến - Bride"
+                    alt="Thúy Mây - Bride"
                     className="w-full h-full object-cover"
                     style={{
                       objectPosition: "0 10px",
@@ -337,7 +337,7 @@ export default function WeddingPage() {
                 </div>
               </div>
               <h3 className="text-3xl font-imperial-script text-gray-800 mb-4">
-                Ngọc Yến
+                Thúy Mây
               </h3>
               {/* <p className="font-quicksand text-gray-600 leading-relaxed max-w-sm mx-auto">
                 A beautiful heart with endless grace, making every day brighter
@@ -356,7 +356,7 @@ export default function WeddingPage() {
                 <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-100 to-indigo-100">
                   <img
                     src="the_groom_avatar.jpg"
-                    alt="Minh Nhật - Groom"
+                    alt="Thạc Huy - Groom"
                     className="w-full h-full object-cover"
                     style={{
                       objectPosition: "0 6px",
@@ -374,7 +374,7 @@ export default function WeddingPage() {
                 </div>
               </div>
               <h3 className="text-3xl font-imperial-script text-gray-800 mb-4">
-                Minh Nhật
+                Thạc Huy
               </h3>
               {/* <p className="font-quicksand text-gray-600 leading-relaxed max-w-sm mx-auto">
                 A kind soul with a passion for life, bringing joy and laughter
