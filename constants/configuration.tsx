@@ -6,7 +6,7 @@ export const CONFIGURATION = {
   day: "28",
   month: "12",
   year: "2025",
-  mapUrl: "https://maps.app.goo.gl/rW1LCytsJxrzcdWz5?g_st=ipc",
+  mapUrl: "https://maps.app.goo.gl/5fckVivYbwpazpRm9",
   address: (
     <div>
       A3-13 Cổng Chung, Xã Ô Diên, Huyện Đan Phượng
@@ -15,8 +15,8 @@ export const CONFIGURATION = {
     </div>
   ),
   avatar: "./the_groom_avatar.jpg",
-  qr: "QR_banking.jpg",
+  qr: "/QR_banking.jpg",
   bankAccountName: "Nguyễn Thạc Huy",
-  bankAccountNumber: "1903 6785 2670 15",
-  bankName: "Techcombank",
+  bankAccountNumber: "8821888",
+  bankName: "VPBank",
 };

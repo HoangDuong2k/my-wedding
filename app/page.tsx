@@ -34,7 +34,6 @@ export default function WeddingPage() {
     {
       src: "./carosel_1.jpg",
     },
-    "./carosel_2.jpg",
     {
       src: "./carosel_3.jpg",
     },
@@ -44,22 +43,23 @@ export default function WeddingPage() {
     },
     {
       src: "./carosel_5.jpg",
-      style: { objectPosition: "-70px top" },
+      // style: { objectPosition: "-70px top" },
       alt: "Khoảnh khắc 5",
     },
     {
       src: "./carosel_6.jpg",
-      style: { objectPosition: "center 0px" },
+      // style: { objectPosition: "center 0px" },
     },
     "./carosel_7.jpg",
     {
       src: "./carosel_8.jpg",
-      style: { objectPosition: "-200px top" },
+      // style: { objectPosition: "-200px top" },
     },
     {
       src: "./carosel_9.jpg",
-      style: { objectPosition: "-40px top" },
+      // style: { objectPosition: "-40px top" },
     },
+    "./carosel_2.jpg",
   ];
 
   useEffect(() => {
@@ -129,14 +129,10 @@ export default function WeddingPage() {
   };
 
   // Gift section helpers
-  const bankAccountOwner = "Nguyễn Thạc Huy";
-  const bankAccountNumber = "nhat1999";
-  const bankName = "TPBank";
-  const qrImageSrc = "/QR_banking.jpg"; // Replace with your QR image path
 
   const copyAccountNumber = async () => {
     try {
-      await navigator.clipboard.writeText(bankAccountNumber);
+      await navigator.clipboard.writeText(CONFIGURATION.bankAccountNumber);
       console.log("Copied STK to clipboard");
     } catch (err) {
       console.error("Failed to copy STK", err);
@@ -146,8 +142,8 @@ export default function WeddingPage() {
   const downloadQrImage = () => {
     try {
       const link = document.createElement("a");
-      link.href = qrImageSrc;
-      link.download = "qr-minh-nhat-tpbank.png";
+      link.href = CONFIGURATION.qr;
+      link.download = "qr-thac-huy-vpbank.png";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -229,17 +225,17 @@ export default function WeddingPage() {
               <div className="space-y-3 sm:space-y-4 md:space-y-5">
                 <div className="grid grid-cols-3 items-center text-xl sm:text-2xl">
                   <span className="font-quicksand font-medium text-right">
-                    09:15
+                    14:00
                   </span>
                   <span className="text-5xl sm:text-6xl md:text-7xl font-quicksand font-light text-center">
-                    26
+                    28
                   </span>
                   <span className="font-quicksand font-medium text-left">
                     CHỦ NHẬT
                   </span>
                 </div>
                 <p className="text-lg sm:text-xl md:text-xl font-quicksand font-light text-center">
-                  10 - 2025
+                  12 - 2025
                 </p>
               </div>
 
@@ -250,9 +246,9 @@ export default function WeddingPage() {
                   Địa điểm tổ chức
                 </p>
                 <p className="text-xs sm:text-sm md:text-sm font-quicksand opacity-90 leading-relaxed">
-                  120 Khu Bình Lục Hạ, Phường Đông Triều
+                  Sau trường mầm non Tân Hội, cụm 4 Vĩnh Kỳ, xã Tân Hội
                   <br />
-                  Tỉnh Quảng Ninh
+                  huyện Đan Phượng, TP Hà Nội
                 </p>
               </div>
 
@@ -262,19 +258,19 @@ export default function WeddingPage() {
                   onClick={() =>
                     window.open(CONFIGURATION.mapUrl as string, "_blank")
                   }
-                  className="p-3 sm:p-4 md:p-4 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-300"
+                  className="p-3 sm:p-4 md:p-4 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer"
                 >
                   <MapPin className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                 </button>
                 <button
                   onClick={() => scrollToSection("gift")}
-                  className="p-3 sm:p-4 md:p-4 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-300"
+                  className="p-3 sm:p-4 md:p-4 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer"
                 >
                   <Gift className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                 </button>
                 <button
                   onClick={() => scrollToSection("guest")}
-                  className="p-3 sm:p-4 md:p-4 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-300"
+                  className="p-3 sm:p-4 md:p-4 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer"
                 >
                   <Heart className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                 </button>
@@ -307,43 +303,6 @@ export default function WeddingPage() {
 
           {/* Couple Photos - Responsive Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-            {/* Bride */}
-            <div
-              className={`text-center transform transition-all duration-1000 ${
-                coupleSection.isVisible
-                  ? "animate-fadeInLeft opacity-100 delay-200"
-                  : "opacity-0 translate-x-8"
-              }`}
-            >
-              <div className="relative mb-8">
-                <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-rose-100 to-pink-100">
-                  <img
-                    src="the_bride_avatar.jpg"
-                    alt="Thúy Mây - Bride"
-                    className="w-full h-full object-cover"
-                    style={{
-                      objectPosition: "0 10px",
-                      scale: "1.7",
-                    }}
-                  />
-                </div>
-                {/* iOS-style floating label */}
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-white/90 backdrop-blur-xl rounded-full px-6 py-3 shadow-lg border border-gray-200/50">
-                    <p className="font-quicksand font-medium text-gray-800">
-                      Cô dâu
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <h3 className="text-3xl font-imperial-script text-gray-800 mb-4">
-                Thúy Mây
-              </h3>
-              {/* <p className="font-quicksand text-gray-600 leading-relaxed max-w-sm mx-auto">
-                A beautiful heart with endless grace, making every day brighter
-                with her love and warmth.
-              </p> */}
-            </div>
             {/* Groom */}
             <div
               className={`text-center transform transition-all duration-1000 ${
@@ -379,6 +338,43 @@ export default function WeddingPage() {
               {/* <p className="font-quicksand text-gray-600 leading-relaxed max-w-sm mx-auto">
                 A kind soul with a passion for life, bringing joy and laughter
                 to every moment we share together.
+              </p> */}
+            </div>
+            {/* Bride */}
+            <div
+              className={`text-center transform transition-all duration-1000 ${
+                coupleSection.isVisible
+                  ? "animate-fadeInLeft opacity-100 delay-200"
+                  : "opacity-0 translate-x-8"
+              }`}
+            >
+              <div className="relative mb-8">
+                <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-rose-100 to-pink-100">
+                  <img
+                    src="the_bride_avatar.jpg"
+                    alt="Thúy Mây - Bride"
+                    className="w-full h-full object-cover"
+                    style={{
+                      objectPosition: "0 10px",
+                      scale: "1.7",
+                    }}
+                  />
+                </div>
+                {/* iOS-style floating label */}
+                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-white/90 backdrop-blur-xl rounded-full px-6 py-3 shadow-lg border border-gray-200/50">
+                    <p className="font-quicksand font-medium text-gray-800">
+                      Cô dâu
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <h3 className="text-3xl font-imperial-script text-gray-800 mb-4">
+                Thúy Mây
+              </h3>
+              {/* <p className="font-quicksand text-gray-600 leading-relaxed max-w-sm mx-auto">
+                A beautiful heart with endless grace, making every day brighter
+                with her love and warmth.
               </p> */}
             </div>
           </div>
@@ -417,15 +413,15 @@ export default function WeddingPage() {
                 <Image
                   src="./story_1.jpg"
                   alt="Couple gaming together"
-                  className="w-full h-80 object-cover rounded-[24px]  object-[0_-10px]"
+                  className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={300}
                 />
               </div>
             </div>
             <p className="absolute top-30 left-1/2 translate-x-[20px] max-w-xs text-[#672b2b] text-xl font-quicksand font-light leading-relaxed text-center">
-              Chú rể gặp cô dâu ở<br />
-              <span className="italic">'Binh Nguyên Vô Tận'</span>
+              Chú rể gặp cô dâu lần đầu ở<br />
+              <span className="italic">'quán thịt xiên'</span>
             </p>
 
             {/* Middle-right photo + caption on left */}
@@ -623,28 +619,30 @@ export default function WeddingPage() {
               title="Bấm để tải ảnh QR"
             >
               <img
-                src={qrImageSrc}
+                src={CONFIGURATION.qr}
                 alt="QR chuyển khoản"
-                className="w-full h-full object-contain bg-white"
+                className="w-full h-full object-contain bg-white cursor-pointer"
               />
             </button>
             <div className="text-left space-y-2">
               <p className="font-quicksand text-gray-800">
-                <span className="font-medium">CTK:</span> {bankAccountOwner}
+                <span className="font-medium">CTK:</span>{" "}
+                {CONFIGURATION.bankAccountName}
               </p>
               <p className="font-quicksand text-gray-800">
                 <span className="font-medium">STK:</span>{" "}
                 <button
                   type="button"
                   onClick={copyAccountNumber}
-                  className="underline decoration-dotted text-rose-700 hover:text-rose-800"
+                  className="underline decoration-dotted text-rose-700 hover:text-rose-800 cursor-pointer"
                   title="Bấm để copy STK"
                 >
-                  {bankAccountNumber}
+                  {CONFIGURATION.bankAccountNumber}
                 </button>
               </p>
               <p className="font-quicksand text-gray-800">
-                <span className="font-medium">NH:</span> {bankName}
+                <span className="font-medium">NH:</span>{" "}
+                {CONFIGURATION.bankName}
               </p>
             </div>
           </div>
