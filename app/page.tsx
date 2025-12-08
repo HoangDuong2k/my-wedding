@@ -297,7 +297,7 @@ export default function WeddingPage() {
               Giới thiệu
             </h2>
             <p className="text-lg font-quicksand text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Cùng lắng nghe câu chuyện của chúng mình
+              Gặp gỡ hai nhân vật chính của câu chuyện tình yêu này
             </p>
           </div>
 
@@ -395,10 +395,11 @@ export default function WeddingPage() {
             }`}
           >
             <h2 className="text-5xl md:text-6xl mb-3 font-eb-garamond text-gray-800 tracking-wide">
-              LOVE STORY
+              Cột Mốc Yêu Thương
             </h2>
             <p className="text-lg font-quicksand text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Capturing the beautiful moments of our journey together
+              Lưu giữ những giây phút ngọt ngào trên hành trình yêu thương của
+              chúng mình
             </p>
           </div>
 
@@ -420,8 +421,8 @@ export default function WeddingPage() {
               </div>
             </div>
             <p className="absolute top-30 left-1/2 translate-x-[20px] max-w-xs text-[#672b2b] text-xl font-quicksand font-light leading-relaxed text-center">
-              Chú rể gặp cô dâu lần đầu ở<br />
-              <span className="italic">'quán thịt xiên'</span>
+              Gặp nhau <br />
+              <span className="italic">'Một chút rung động'</span>
             </p>
 
             {/* Middle-right photo + caption on left */}
@@ -435,7 +436,8 @@ export default function WeddingPage() {
               </div>
             </div>
             <p className="absolute top-[480px] right-1/2 -translate-x-[20px] max-w-xs text-[#672b2b] text-xl font-quicksand font-light leading-relaxed text-center">
-              Cùng nhau tốt nghiệp
+              Du lịch đầu tiên <br />
+              <span className="italic">'Gần nhau hơn'</span>
             </p>
 
             {/* Bottom-left photo + caption on right */}
@@ -449,7 +451,8 @@ export default function WeddingPage() {
               </div>
             </div>
             <p className="absolute top-[800px] left-1/2 translate-x-[20px] max-w-xs text-[#672b2b] text-xl font-quicksand font-light leading-relaxed text-center">
-              Cùng nhau đi du lịch
+              Lễ tốt nghiệp <br />
+              <span className="italic">'Tự hào có nhau'</span>
             </p>
 
             {/* Fourth event - Cầu Hôn Lung Linh  */}
@@ -463,7 +466,8 @@ export default function WeddingPage() {
               </div>
             </div>
             <p className="absolute top-[1100px] right-1/2 -translate-x-[20px] max-w-xs text-[#672b2b] text-xl font-quicksand font-light leading-relaxed text-center">
-              Cầu Hôn Lung Linh
+              Cầu hôn <br />
+              <span className="italic">'Lời đồng ý trọn vẹn'</span>
             </p>
 
             {/* Fifth event - Dạm ngõ */}
@@ -477,7 +481,8 @@ export default function WeddingPage() {
               </div>
             </div>
             <p className="absolute top-[1430px] left-1/2 translate-x-[20px] max-w-xs text-[#672b2b] text-xl font-quicksand font-light leading-relaxed text-center">
-              "Dạm ngõ"
+              Dạm ngõ <br />
+              <span className="italic">'Bắt đầu hành trình chung'</span>
             </p>
 
             {/* Sixth event - Về chung một nhà   */}
@@ -491,7 +496,8 @@ export default function WeddingPage() {
               </div>
             </div>
             <p className="absolute top-[1740px] right-1/2 -translate-x-[20px] max-w-xs text-[#672b2b] text-xl font-quicksand font-light leading-relaxed text-center">
-              Về chung một nhà
+              Về chung nhà <br />
+              <span className="italic">'Một đời bên nhau'</span>
             </p>
 
             {/* Spacer for desktop layout height to reveal absolutely positioned items */}
@@ -509,8 +515,8 @@ export default function WeddingPage() {
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
-                Chú rể gặp cô dâu ở<br />
-                <span className="italic">'Binh Nguyên Vô Tận'</span>
+                Gặp nhau <br />
+                <span className="italic">'Một chút rung động'</span>
               </p>
             </div>
 
@@ -523,7 +529,8 @@ export default function WeddingPage() {
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
-                Cùng nhau tốt nghiệp
+                Du lịch đầu tiên <br />
+                <span className="italic">'Gần nhau hơn'</span>
               </p>
             </div>
 
@@ -536,7 +543,8 @@ export default function WeddingPage() {
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
-                Cùng nhau đi du lịch
+                Lễ tốt nghiệp <br />
+                <span className="italic">'Tự hào có nhau'</span>
               </p>
             </div>
 
@@ -549,7 +557,8 @@ export default function WeddingPage() {
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
-                Cầu Hôn Lung Linh
+                Cầu hôn <br />
+                <span className="italic">'Lời đồng ý trọn vẹn'</span>
               </p>
             </div>
 
@@ -562,7 +571,8 @@ export default function WeddingPage() {
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
-                "Dạm ngõ"
+                Dạm ngõ <br />
+                <span className="italic">'Bắt đầu hành trình chung'</span>
               </p>
             </div>
 
@@ -575,7 +585,8 @@ export default function WeddingPage() {
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
-                Về chung một nhà
+                Về chung nhà <br />
+                <span className="italic">'Một đời bên nhau'</span>
               </p>
             </div>
           </div>
