@@ -2,12 +2,12 @@
 
 import type React from "react";
 
-import { useState, useEffect } from "react";
-import { MapPin, Heart, Gift } from "lucide-react";
-import { CONFIGURATION } from "@/constants/configuration";
-import Image from "next/image";
-import { useScrollEffects, useParallax } from "@/hooks/use-scroll-effects";
 import PhotoAlbum from "@/components/PhotoAlbum";
+import { CONFIGURATION } from "@/constants/configuration";
+import { useParallax, useScrollEffects } from "@/hooks/use-scroll-effects";
+import { Gift, Heart, MapPin } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function WeddingPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -160,18 +160,24 @@ export default function WeddingPage() {
         <div className="absolute inset-0">
           {/* Desktop Background */}
           <div className="hidden md:block absolute inset-0">
-            <img
+            <Image
               src="./banner_desktop.jpg"
               alt="Wedding couple"
+              width={1905}
+              height={605}
+              quality={100}
               className="w-full h-full object-cover"
             />
           </div>
           {/* Mobile Background */}
           <div className="md:hidden absolute inset-0">
-            <img
+            <Image
               src="./banner_mobile.jpg"
               alt="Wedding couple mobile"
               className="w-full h-full object-cover"
+              width={400}
+              height={558}
+              quality={100}
             />
           </div>
           {/* Overlay with gradient blur at bottom */}
@@ -246,9 +252,9 @@ export default function WeddingPage() {
                   Địa điểm tổ chức
                 </p>
                 <p className="text-xs sm:text-sm md:text-sm font-quicksand opacity-90 leading-relaxed">
-                  Sau trường mầm non Tân Hội, cụm 4 Vĩnh Kỳ, xã Tân Hội
+                  Sau trường mầm non Tân Hội, cụm 4 Vĩnh Kỳ
                   <br />
-                  huyện Đan Phượng, TP Hà Nội
+                  xã Tân Hội, huyện Đan Phượng, TP Hà Nội
                 </p>
               </div>
 
@@ -313,7 +319,7 @@ export default function WeddingPage() {
             >
               <div className="relative mb-8">
                 <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-100 to-indigo-100">
-                  <img
+                  <Image
                     src="the_groom_avatar.jpg"
                     alt="Thạc Huy - Groom"
                     className="w-full h-full object-cover"
@@ -321,6 +327,9 @@ export default function WeddingPage() {
                       objectPosition: "0 6px",
                       scale: "1.1",
                     }}
+                    width={320}
+                    height={384}
+                    quality={100}
                   />
                 </div>
                 {/* iOS-style floating label */}
@@ -350,7 +359,7 @@ export default function WeddingPage() {
             >
               <div className="relative mb-8">
                 <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-rose-100 to-pink-100">
-                  <img
+                  <Image
                     src="the_bride_avatar.jpg"
                     alt="Thúy Mây - Bride"
                     className="w-full h-full object-cover"
@@ -358,6 +367,9 @@ export default function WeddingPage() {
                       objectPosition: "0 10px",
                       scale: "1.7",
                     }}
+                    width={320}
+                    height={384}
+                    quality={100}
                   />
                 </div>
                 {/* iOS-style floating label */}
@@ -415,8 +427,9 @@ export default function WeddingPage() {
                   src="./story_1.jpg"
                   alt="Couple gaming together"
                   className="w-full h-80 object-cover rounded-[24px]"
-                  width={320}
-                  height={300}
+                  width={312}
+                  height={320}
+                  quality={100}
                 />
               </div>
             </div>
@@ -428,10 +441,13 @@ export default function WeddingPage() {
             {/* Middle-right photo + caption on left */}
             <div className="absolute top-[320px] left-1/2 translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
-                <img
+                <Image
                   src="./story_2.jpg"
                   alt="Graduation together"
                   className="w-full h-80 object-cover rounded-[24px]"
+                  width={320}
+                  height={384}
+                  quality={100}
                 />
               </div>
             </div>
@@ -443,10 +459,13 @@ export default function WeddingPage() {
             {/* Bottom-left photo + caption on right */}
             <div className="absolute top-[640px] right-1/2 -translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
-                <img
+                <Image
                   src="./story_3.jpg"
                   alt="Couple traveling"
                   className="w-full h-80 object-cover rounded-[24px]"
+                  width={320}
+                  height={384}
+                  quality={100}
                 />
               </div>
             </div>
@@ -458,10 +477,13 @@ export default function WeddingPage() {
             {/* Fourth event - Cầu Hôn Lung Linh  */}
             <div className="absolute top-[950px] left-1/2 translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
-                <img
+                <Image
                   src="./story_4.jpg"
                   alt="Proposal moment"
                   className="w-full h-80 object-cover rounded-[24px]"
+                  width={320}
+                  height={384}
+                  quality={100}
                 />
               </div>
             </div>
@@ -473,10 +495,13 @@ export default function WeddingPage() {
             {/* Fifth event - Dạm ngõ */}
             <div className="absolute top-[1270px] right-1/2 -translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
-                <img
+                <Image
                   src="./story_5.jpg"
                   alt="Engagement ceremony"
                   className="w-full h-80 object-cover rounded-[24px]"
+                  width={320}
+                  height={384}
+                  quality={100}
                 />
               </div>
             </div>
@@ -488,10 +513,13 @@ export default function WeddingPage() {
             {/* Sixth event - Về chung một nhà   */}
             <div className="absolute top-[1590px] left-1/2 translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
-                <img
+                <Image
                   src="./story_6.jpg"
                   alt="Moving in together"
-                  className="w-full h-80 object-cover rounded-[24px]  object-[0_-10px]"
+                  className="w-full h-80 object-cover rounded-[24px]"
+                  width={320}
+                  height={384}
+                  quality={100}
                 />
               </div>
             </div>
@@ -508,10 +536,13 @@ export default function WeddingPage() {
           <div className="md:hidden space-y-14">
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
-                <img
+                <Image
                   src="story_1.jpg"
                   alt="Couple gaming together"
-                  className="w-full h-100 object-cover rounded-[24px] object-[0_-10px]"
+                  className="w-full h-100 object-cover rounded-[24px]"
+                  width={344}
+                  height={400}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -522,10 +553,13 @@ export default function WeddingPage() {
 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
-                <img
+                <Image
                   src="story_2.jpg"
                   alt="Graduation together"
                   className="w-full h-100 object-cover rounded-[24px]"
+                  width={344}
+                  height={400}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -536,10 +570,13 @@ export default function WeddingPage() {
 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
-                <img
+                <Image
                   src="story_3.jpg"
                   alt="Couple traveling"
                   className="w-full h-100 object-cover rounded-[24px]"
+                  width={344}
+                  height={400}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -550,10 +587,13 @@ export default function WeddingPage() {
 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
-                <img
+                <Image
                   src="story_4.jpg"
                   alt="Proposal moment"
                   className="w-full h-100 object-cover rounded-[24px]"
+                  width={344}
+                  height={400}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -564,10 +604,13 @@ export default function WeddingPage() {
 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
-                <img
+                <Image
                   src="story_5.jpg"
                   alt="Engagement ceremony"
                   className="w-full h-100 object-cover rounded-[24px]"
+                  width={344}
+                  height={400}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -578,10 +621,13 @@ export default function WeddingPage() {
 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
-                <img
+                <Image
                   src="story_6.jpg"
                   alt="Moving in together"
-                  className="w-full h-100 object-cover rounded-[24px]  object-[0_-10px]"
+                  className="w-full h-100 object-cover rounded-[24px]"
+                  width={344}
+                  height={400}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -829,18 +875,24 @@ export default function WeddingPage() {
             }`}
           >
             {/* Floral background frame */}
-            <img
+            <Image
               src="/thankyou_flower_background.png"
               alt="Floral frame"
               className="z-10 pointer-events-none select-none w-[400px] h-[600px] -top-[90px]  sm:w-[680px] sm:h-[830px] sm:-top-[140px] max-w-full absolute left-1/2 -translate-x-1/2"
               aria-hidden
+              width={680}
+              height={830}
+              quality={100}
             />
             {/* Arched photo */}
             <div className="relative w-[300] h-[400px] rounded-[160px] sm:w-[380px] sm:h-[540px] sm:rounded-[180px]  overflow-hidden shadow-xl border-2 border-rose-300 bg-white">
-              <img
+              <Image
                 src="/thankyou_bride_groom.jpg"
                 alt="Bride and Groom"
                 className="w-full h-full object-cover"
+                width={376}
+                height={536}
+                quality={100}
               />
             </div>
 
