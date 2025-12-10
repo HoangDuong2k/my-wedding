@@ -89,30 +89,26 @@ export default function WeddingPage() {
     const baseUrl = baseUrlEnv.replace(/\/$/, "");
 
     const accepted = guestForm.attendance === "yes";
-    const payload: {
-      name: string;
-      accepted?: boolean;
-      guestCount?: number | string;
-      message?: string;
-    } = {
-      name: guestForm.name.trim(),
-      accepted,
-      guestCount: accepted ? Number(guestForm.guestCount) : "",
-      message: guestForm.wishes?.trim() || undefined,
-    };
 
+    // Gửi thông báo sang Telegram
     try {
-      const res = await fetch(`${baseUrl}/api/groom/accept-invite`, {
+      const telegramMessage = `
+🎉 *Phản hồi mời cưới mới!*
+
+👤 *Tên khách:* ${guestForm.name.trim()}
+${accepted ? "✅ *Tham dự:* Có" : "❌ *Tham dự:* Không"}
+${accepted ? `👥 *Số khách:* ${guestForm.guestCount}` : ""}
+${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : ""}
+
+📅 *Thời gian:* ${new Date().toLocaleString("vi-VN")}
+        `.trim();
+
+      await fetch(`${baseUrl}/api/telegram/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ message: telegramMessage }),
       });
 
-      const data = await res.json();
-      if (!res.ok)
-        throw new Error(data.error || data.message || "Request failed");
-
-      console.log("Groom invitation response saved:", data);
       setGuestForm({
         name: "",
         attendance: "yes",
@@ -120,10 +116,10 @@ export default function WeddingPage() {
         wishes: "",
       });
       setSubmitSuccess(true);
-      setIsSubmitting(false);
-      setTimeout(() => setSubmitSuccess(false), 5000);
-    } catch (error: any) {
-      console.error("Failed to submit groom invite:", error);
+      setTimeout(() => setSubmitSuccess(false), 2000);
+    } catch (telegramError) {
+      console.error("Failed to send Telegram notification:", telegramError);
+    } finally {
       setIsSubmitting(false);
     }
   };
