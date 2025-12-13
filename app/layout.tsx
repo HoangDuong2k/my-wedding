@@ -10,13 +10,13 @@ export const metadata: Metadata = {
     title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
     description: "28-12-2025 | Chúng mình cưới ♥",
     type: "website",
-    images: ["web-thumb.jpg"],
+    images: [`${process.env.DOMAIN_URL}/web-thumb.jpg`],
   },
   twitter: {
     card: "summary_large_image",
     title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
     description: "28-12-2025 | Chúng mình cưới ♥",
-    images: ["web-thumb.jpg"],
+    images: [`${process.env.DOMAIN_URL}/web-thumb.jpg`],
   },
   icons: {
     icon: [
