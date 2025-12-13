@@ -8,6 +8,7 @@ import { useParallax, useScrollEffects } from "@/hooks/use-scroll-effects";
 import { Gift, Heart, MapPin } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import AudioWedding from "@/components/ui/audio-wedding";
 
 export default function WeddingPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -899,6 +900,8 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
         </div>
       </section>
       <section className="h-30"></section>
+      {/* Music */}
+      <AudioWedding />
     </div>
   );
 }
