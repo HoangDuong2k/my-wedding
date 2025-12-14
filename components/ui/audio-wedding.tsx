@@ -71,6 +71,8 @@ const AudioWedding = () => {
     });
   };
 
+  const firstRef = useRef(true);
+
   useEffect(() => {
     const handleScroll = () => {
       console.log("Scroll Y:", {
@@ -78,7 +80,8 @@ const AudioWedding = () => {
         innerWidth: window.innerWidth,
       });
       const scrollY = window.scrollY;
-      if (scrollY > 50) {
+      if (scrollY > 50 && firstRef.current) {
+        firstRef.current = false;
         setVisible(true);
         const isMobile = window.innerWidth <= 768;
         if (!isMobile) return;
