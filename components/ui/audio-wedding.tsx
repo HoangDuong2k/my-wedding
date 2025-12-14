@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MusicIcon = (
   props: { width?: string; height?: string; className?: string } = {}
@@ -52,7 +52,7 @@ const MusicTurnOffIcon = (
 };
 
 const AudioWedding = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -69,6 +69,22 @@ const AudioWedding = () => {
       return next;
     });
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log("Scroll Y:", window.scrollY);
+      const scrollY = window.scrollY;
+      if (scrollY > 50) {
+        setIsPlaying(true);
+        if (audioRef.current) {
+          audioRef.current.play();
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div
@@ -107,7 +123,7 @@ const AudioWedding = () => {
       <audio
         ref={audioRef}
         src="audio-wedding.mp3"
-        autoPlay
+        autoPlay={isPlaying}
         loop
         style={{ display: "none" }}
       />
