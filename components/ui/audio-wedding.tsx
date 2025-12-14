@@ -53,6 +53,7 @@ const MusicTurnOffIcon = (
 
 const AudioWedding = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -72,9 +73,15 @@ const AudioWedding = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log("Scroll Y:", window.scrollY);
+      console.log("Scroll Y:", {
+        scrollY: window.scrollY,
+        innerWidth: window.innerWidth,
+      });
       const scrollY = window.scrollY;
       if (scrollY > 50) {
+        setVisible(true);
+        const isMobile = window.innerWidth <= 768;
+        if (!isMobile) return;
         setIsPlaying(true);
         if (audioRef.current) {
           audioRef.current.play();
@@ -93,13 +100,14 @@ const AudioWedding = () => {
         bottom: "24px",
         right: "24px",
         zIndex: 1000,
-        background: "rgba(255,255,255,0.8)",
+        background: "rgba(255,255,255,0.7)",
         borderRadius: "50%",
         boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
         padding: "10px",
         display: "flex",
         alignItems: "center",
         cursor: "pointer",
+        visibility: visible ? "visible" : "hidden",
       }}
       onClick={handleToggle}
       title={isPlaying ? "Tắt nhạc" : "Bật nhạc"}
