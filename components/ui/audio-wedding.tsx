@@ -123,7 +123,7 @@ const AudioWedding = () => {
       <audio
         ref={audioRef}
         src="audio-wedding.mp3"
-        autoPlay={isPlaying}
+        autoPlay
         loop
         style={{ display: "none" }}
       />
