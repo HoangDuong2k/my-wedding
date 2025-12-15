@@ -161,7 +161,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               alt="Wedding couple"
               width={1905}
               height={605}
-              quality={70}
+              quality={80}
               className="w-full h-full object-cover"
             />
           </div>
@@ -173,7 +173,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               className="w-full h-full object-cover"
               width={400}
               height={558}
-              quality={70}
+              quality={80}
             />
           </div>
           {/* Overlay with gradient blur at bottom */}
@@ -421,7 +421,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
                 <Image
                   src="./story_1.jpg"
-                  alt="Couple gaming together"
+                  alt="Couple together"
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={312}
                   height={320}
@@ -534,7 +534,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
                 <Image
                   src="story_1.jpg"
-                  alt="Couple gaming together"
+                  alt="Couple together"
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
