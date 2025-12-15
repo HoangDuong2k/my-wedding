@@ -11,6 +11,7 @@ export const metadata: Metadata = {
         description:
             'Thiệp cưới online của Thạc Huy & Thúy Mây | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.',
         type: 'website',
+        url: 'https://nguyenthachuy.io.vn/',
         images: [
             {
                 url: 'thumbnail.jpg',
