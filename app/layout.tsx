@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         url: 'https://nguyenthachuy.io.vn/',
         images: [
             {
-                url: 'thumbnail-3.jpg',
+                url: `thumbnail-3.jpg?t=${Date.now()}`,
                 width: 1200,
                 height: 630,
                 alt: 'Thạc Huy & Thuý Mây - Thiệp cưới online',
