@@ -93,7 +93,7 @@ export default function WeddingPage() {
         // Gửi thông báo sang Telegram
         try {
             const telegramMessage = `
-🎉 *Phản hồi mời cưới mới!*
+🎉 *Phản hồi mời cưới mới! (Huy)*
 
 👤 *Tên khách:* ${guestForm.name.trim()}
 ${accepted ? '✅ *Tham dự:* Có' : '❌ *Tham dự:* Không'}
