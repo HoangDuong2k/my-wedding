@@ -7,18 +7,18 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    // unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**", // Cho phép mọi domain
-      },
-      {
-        protocol: "http",
-        hostname: "**",
-      },
-    ],
-    domains: ["nguyenthachuy.io.vn"],
+    unoptimized: true,
+    // remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname: "**", // Cho phép mọi domain
+    //   },
+    //   {
+    //     protocol: "http",
+    //     hostname: "**",
+    //   },
+    // ],
+    // domains: ["nguyenthachuy.io.vn"],
   },
 };
 
