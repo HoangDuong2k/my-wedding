@@ -7,16 +7,25 @@ export const metadata: Metadata = {
   title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
   description: "28-12-2025 | Chúng mình cưới ♥",
   openGraph: {
-    title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
-    description: "28-12-2025 | Chúng mình cưới ♥",
+    title: "Thạc Huy & Thúy Mây",
+    description:
+      "Thiệp cưới online của Thạc Huy & Thúy Mây | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.",
     type: "website",
-    images: ["web-thumb.jpg"],
+    images: [
+      {
+        url: "banner_desktop.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Thạc Huy & Thuý Mây - Thiệp cưới online",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thiệp mời Đám cưới Thạc Huy & Thúy Mây",
-    description: "28-12-2025 | Chúng mình cưới ♥",
-    images: ["web-thumb.jpg"],
+    title: "Thạc Huy & Thúy Mây",
+    description:
+      "Thiệp cưới online của Thạc Huy & Thúy Mây | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.",
+    images: ["banner_desktop.jpg"],
   },
   icons: {
     icon: [

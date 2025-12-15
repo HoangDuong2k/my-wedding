@@ -33,34 +33,34 @@ export default function WeddingPage() {
 
   const carouselPhotos = [
     {
-      src: "./carosel_1.jpg",
+      src: "/carosel_1.jpg",
     },
     {
-      src: "./carosel_3.jpg",
+      src: "/carosel_3.jpg",
     },
     {
-      src: "./carosel_4.jpg",
+      src: "/carosel_4.jpg",
       style: {},
     },
     {
-      src: "./carosel_5.jpg",
+      src: "/carosel_5.jpg",
       // style: { objectPosition: "-70px top" },
       alt: "Khoảnh khắc 5",
     },
     {
-      src: "./carosel_6.jpg",
+      src: "/carosel_6.jpg",
       // style: { objectPosition: "center 0px" },
     },
-    "./carosel_7.jpg",
+    "/carosel_7.jpg",
     {
-      src: "./carosel_8.jpg",
+      src: "/carosel_8.jpg",
       // style: { objectPosition: "-200px top" },
     },
     {
-      src: "./carosel_9.jpg",
+      src: "/carosel_9.jpg",
       // style: { objectPosition: "-40px top" },
     },
-    "./carosel_2.jpg",
+    "/carosel_2.jpg",
   ];
 
   useEffect(() => {
@@ -157,23 +157,23 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
           {/* Desktop Background */}
           <div className="hidden md:block absolute inset-0">
             <Image
-              src="./banner_desktop.jpg"
+              src="/banner_desktop.jpg"
               alt="Wedding couple"
               width={1905}
               height={605}
-              quality={70}
+              quality={100}
               className="w-full h-full object-cover"
             />
           </div>
           {/* Mobile Background */}
           <div className="md:hidden absolute inset-0">
             <Image
-              src="./banner_mobile.jpg"
+              src="/banner_mobile.jpg"
               alt="Wedding couple mobile"
               className="w-full h-full object-cover"
               width={400}
               height={558}
-              quality={70}
+              quality={100}
             />
           </div>
           {/* Overlay with gradient blur at bottom */}
@@ -316,7 +316,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               <div className="relative mb-8">
                 <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-100 to-indigo-100">
                   <Image
-                    src="the_groom_avatar.jpg"
+                    src="/the_groom_avatar.jpg"
                     alt="Thạc Huy - Groom"
                     className="w-full h-full object-cover"
                     style={{
@@ -325,7 +325,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                     }}
                     width={320}
                     height={384}
-                    quality={80}
+                    quality={100}
                   />
                 </div>
                 {/* iOS-style floating label */}
@@ -356,7 +356,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               <div className="relative mb-8">
                 <div className="w-full max-w-80 h-80 sm:h-96 mx-auto rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-rose-100 to-pink-100">
                   <Image
-                    src="the_bride_avatar.jpg"
+                    src="/the_bride_avatar.jpg"
                     alt="Thúy Mây - Bride"
                     className="w-full h-full object-cover"
                     style={{
@@ -365,7 +365,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                     }}
                     width={320}
                     height={384}
-                    quality={80}
+                    quality={100}
                   />
                 </div>
                 {/* iOS-style floating label */}
@@ -420,12 +420,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="absolute top-0 right-1/2 -translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
                 <Image
-                  src="./story_1.jpg"
-                  alt="Couple gaming together"
+                  src="/story_1.jpg"
+                  alt="Couple together"
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={312}
                   height={320}
-                  quality={90}
+                  quality={100}
                 />
               </div>
             </div>
@@ -438,12 +438,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="absolute top-[320px] left-1/2 translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
                 <Image
-                  src="./story_2.jpg"
+                  src="/story_2.jpg"
                   alt="Graduation together"
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={90}
+                  quality={100}
                 />
               </div>
             </div>
@@ -456,12 +456,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="absolute top-[640px] right-1/2 -translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
                 <Image
-                  src="./story_3.jpg"
+                  src="/story_3.jpg"
                   alt="Couple traveling"
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={90}
+                  quality={100}
                 />
               </div>
             </div>
@@ -474,12 +474,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="absolute top-[950px] left-1/2 translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
                 <Image
-                  src="./story_4.jpg"
+                  src="/story_4.jpg"
                   alt="Proposal moment"
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={90}
+                  quality={100}
                 />
               </div>
             </div>
@@ -492,12 +492,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="absolute top-[1270px] right-1/2 -translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
                 <Image
-                  src="./story_5.jpg"
+                  src="/story_5.jpg"
                   alt="Engagement ceremony"
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={90}
+                  quality={100}
                 />
               </div>
             </div>
@@ -510,12 +510,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="absolute top-[1590px] left-1/2 translate-x-[60px] w-80">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl">
                 <Image
-                  src="./story_6.jpg"
+                  src="/story_6.jpg"
                   alt="Moving in together"
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={90}
+                  quality={100}
                 />
               </div>
             </div>
@@ -533,12 +533,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
                 <Image
-                  src="story_1.jpg"
-                  alt="Couple gaming together"
+                  src="/story_1.jpg"
+                  alt="Couple together"
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -550,12 +550,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
                 <Image
-                  src="story_2.jpg"
+                  src="/story_2.jpg"
                   alt="Graduation together"
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -567,12 +567,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
                 <Image
-                  src="story_3.jpg"
+                  src="/story_3.jpg"
                   alt="Couple traveling"
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -584,12 +584,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
                 <Image
-                  src="story_4.jpg"
+                  src="/story_4.jpg"
                   alt="Proposal moment"
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -601,12 +601,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
                 <Image
-                  src="story_5.jpg"
+                  src="/story_5.jpg"
                   alt="Engagement ceremony"
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -618,12 +618,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <div className="text-center">
               <div className="rounded-[28px] p-1 bg-white shadow-2xl mb-6">
                 <Image
-                  src="story_6.jpg"
+                  src="/story_6.jpg"
                   alt="Moving in together"
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -878,7 +878,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               aria-hidden
               width={680}
               height={830}
-              quality={90}
+              quality={100}
             />
             {/* Arched photo */}
             <div className="relative w-[300] h-[400px] rounded-[160px] sm:w-[380px] sm:h-[540px] sm:rounded-[180px]  overflow-hidden shadow-xl border-2 border-rose-300 bg-white">
@@ -888,7 +888,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                 className="w-full h-full object-cover"
                 width={376}
                 height={536}
-                quality={90}
+                quality={100}
               />
             </div>
 

@@ -7,8 +7,19 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**", // Cho phép mọi domain
+      },
+      {
+        protocol: "http",
+        hostname: "**",
+      },
+    ],
+    // domains: ["nguyenthachuy.io.vn"],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
