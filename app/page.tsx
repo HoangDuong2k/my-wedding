@@ -161,7 +161,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               alt="Wedding couple"
               width={1905}
               height={605}
-              quality={100}
+              quality={70}
               className="w-full h-full object-cover"
             />
           </div>
@@ -173,7 +173,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               className="w-full h-full object-cover"
               width={400}
               height={558}
-              quality={100}
+              quality={70}
             />
           </div>
           {/* Overlay with gradient blur at bottom */}
@@ -325,7 +325,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                     }}
                     width={320}
                     height={384}
-                    quality={100}
+                    quality={80}
                   />
                 </div>
                 {/* iOS-style floating label */}
@@ -365,7 +365,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                     }}
                     width={320}
                     height={384}
-                    quality={100}
+                    quality={80}
                   />
                 </div>
                 {/* iOS-style floating label */}
@@ -425,7 +425,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={312}
                   height={320}
-                  quality={100}
+                  quality={90}
                 />
               </div>
             </div>
@@ -443,7 +443,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={100}
+                  quality={90}
                 />
               </div>
             </div>
@@ -461,7 +461,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={100}
+                  quality={90}
                 />
               </div>
             </div>
@@ -479,7 +479,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={100}
+                  quality={90}
                 />
               </div>
             </div>
@@ -497,7 +497,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={100}
+                  quality={90}
                 />
               </div>
             </div>
@@ -515,7 +515,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-80 object-cover rounded-[24px]"
                   width={320}
                   height={384}
-                  quality={100}
+                  quality={90}
                 />
               </div>
             </div>
@@ -538,7 +538,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={100}
+                  quality={90}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -555,7 +555,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={100}
+                  quality={90}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -572,7 +572,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={100}
+                  quality={90}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -589,7 +589,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={100}
+                  quality={90}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -606,7 +606,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={100}
+                  quality={90}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -623,7 +623,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                   className="w-full h-100 object-cover rounded-[24px]"
                   width={344}
                   height={400}
-                  quality={100}
+                  quality={90}
                 />
               </div>
               <p className="text-lg font-quicksand text-[#672b2b] font-light leading-relaxed">
@@ -878,7 +878,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
               aria-hidden
               width={680}
               height={830}
-              quality={100}
+              quality={90}
             />
             {/* Arched photo */}
             <div className="relative w-[300] h-[400px] rounded-[160px] sm:w-[380px] sm:h-[540px] sm:rounded-[180px]  overflow-hidden shadow-xl border-2 border-rose-300 bg-white">
@@ -888,7 +888,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                 className="w-full h-full object-cover"
                 width={376}
                 height={536}
-                quality={100}
+                quality={90}
               />
             </div>
 
