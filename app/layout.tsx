@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "banner_desktop.jpg",
+        url: "thumbnail.jpg",
         width: 1200,
         height: 630,
         alt: "Thạc Huy & Thuý Mây - Thiệp cưới online",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "Thạc Huy & Thúy Mây",
     description:
       "Thiệp cưới online của Thạc Huy & Thúy Mây | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.",
-    images: ["banner_desktop.jpg"],
+    images: ["thumbnail.jpg"],
   },
   icons: {
     icon: [
