@@ -54,6 +54,7 @@ const MusicTurnOffIcon = (
 const AudioWedding = () => {
     const [isPlaying, setIsPlaying] = useState(false)
     const [visible, setVisible] = useState(false)
+    const [audioMounted, setAudioMounted] = useState(false)
 
     const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -83,12 +84,20 @@ const AudioWedding = () => {
             if (scrollY > 50 && firstRef.current) {
                 firstRef.current = false
                 setVisible(true)
-                const isMobile = window.innerWidth <= 768
-                if (!isMobile) return
-                setIsPlaying(true)
-                if (audioRef.current) {
-                    audioRef.current.play()
-                }
+                setAudioMounted(true)
+
+                // Try to autoplay on mobile after scroll interaction
+                setTimeout(() => {
+                    const isMobile = window.innerWidth <= 768
+                    if (isMobile && audioRef.current) {
+                        audioRef.current.play().then(() => {
+                            setIsPlaying(true)
+                        }).catch((error) => {
+                            console.log('Autoplay blocked:', error)
+                            // Autoplay was blocked, user needs to tap the button
+                        })
+                    }
+                }, 100)
             }
         }
         window.addEventListener('scroll', handleScroll)
@@ -131,13 +140,15 @@ const AudioWedding = () => {
                     <MusicTurnOffIcon className='text-[#474747]' />
                 )}
             </span>
-            <audio
-                ref={audioRef}
-                src='audio-wedding2.mp3'
-                autoPlay
-                loop
-                style={{ display: 'none' }}
-            />
+            {audioMounted && (
+                <audio
+                    ref={audioRef}
+                    src='audio-wedding2.mp3'
+                    autoPlay
+                    loop
+                    style={{ display: 'none' }}
+                />
+            )}
             <style>
                 {`
           @keyframes spin {
