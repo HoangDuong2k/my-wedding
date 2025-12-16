@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         url: 'https://nguyenthachuy.io.vn/',
         images: [
             {
-                url: 'thumbnail-3.jpg',
+                url: 'https://pub-d4a5f515ee944b9ba6badb890bcaadf9.r2.dev/thumbnail-3.jpg',
                 width: 1200,
                 height: 630,
                 alt: 'Thạc Huy & Thuý Mây - Thiệp cưới online',
@@ -26,7 +26,9 @@ export const metadata: Metadata = {
         title: 'Thạc Huy & Thúy Mây',
         description:
             'Thiệp cưới online của Thạc Huy & Thúy Mây | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.',
-        images: ['thumbnail-3.jpg'],
+        images: [
+            'https://pub-d4a5f515ee944b9ba6badb890bcaadf9.r2.dev/thumbnail-3.jpg',
+        ],
     },
     icons: {
         icon: [
