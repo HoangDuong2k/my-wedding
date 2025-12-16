@@ -86,18 +86,16 @@ const AudioWedding = () => {
                 setVisible(true)
                 setAudioMounted(true)
 
-                // Try to autoplay after scroll interaction
+                // Try to autoplay on mobile after scroll interaction
                 setTimeout(() => {
-                    if (audioRef.current) {
-                        audioRef.current
-                            .play()
-                            .then(() => {
-                                setIsPlaying(true)
-                            })
-                            .catch((error) => {
-                                console.log('Autoplay blocked:', error)
-                                // Autoplay was blocked, user needs to tap the button
-                            })
+                    const isMobile = window.innerWidth <= 768
+                    if (isMobile && audioRef.current) {
+                        audioRef.current.play().then(() => {
+                            setIsPlaying(true)
+                        }).catch((error) => {
+                            console.log('Autoplay blocked:', error)
+                            // Autoplay was blocked, user needs to tap the button
+                        })
                     }
                 }, 100)
             }
