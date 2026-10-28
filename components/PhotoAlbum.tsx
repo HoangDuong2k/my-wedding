@@ -1,9 +1,8 @@
 "use client";
 
 import type React from "react";
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useCallback, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useScrollEffects } from "@/hooks/use-scroll-effects";
 
 type PhotoItem =
@@ -17,212 +16,159 @@ type PhotoItem =
 
 interface PhotoAlbumProps {
   photos: PhotoItem[];
-  autoSlideInterval?: number;
+  // Seconds each photo takes to scroll past; higher is slower
+  secondsPerPhoto?: number;
 }
 
-export default function PhotoAlbum({ 
-  photos, 
-  autoSlideInterval = 4000 
-}: PhotoAlbumProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isUserInteracting, setIsUserInteracting] = useState(false);
-  const albumSection = useScrollEffects({ threshold: 0.1 });
+const resolvePhoto = (item: PhotoItem) =>
+  typeof item === "string"
+    ? { src: item, className: "", style: undefined, alt: undefined }
+    : { className: "", ...item };
 
-  const resolvePhoto = (item: PhotoItem) => {
-    if (typeof item === "string") {
-      return { src: item, className: "", style: undefined as React.CSSProperties | undefined, alt: undefined as string | undefined };
-    }
-    return {
-      src: item.src,
-      className: item.className ?? "",
-      style: item.style,
-      alt: item.alt,
-    };
-  };
-
-  useEffect(() => {
-    if (isUserInteracting) return;
-    
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % photos.length);
-    }, autoSlideInterval);
-
-    return () => clearInterval(interval);
-  }, [photos.length, autoSlideInterval, isUserInteracting]);
-
-  // Enable keyboard navigation for desktop
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowRight") {
-        setIsUserInteracting(true);
-        setCurrentSlide((prev) => (prev + 1) % photos.length);
-      } else if (event.key === "ArrowLeft") {
-        setIsUserInteracting(true);
-        setCurrentSlide(
-          (prev) => (prev - 1 + photos.length) % photos.length
-        );
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [photos.length]);
-
-  const nextSlide = () => {
-    setIsUserInteracting(true);
-    setCurrentSlide((prev) => (prev + 1) % photos.length);
-  };
-
-  const prevSlide = () => {
-    setIsUserInteracting(true);
-    setCurrentSlide(
-      (prev) => (prev - 1 + photos.length) % photos.length
-    );
-  };
+function MarqueeRow({
+  photos,
+  offset,
+  reverse,
+  duration,
+  onOpen,
+}: {
+  photos: ReturnType<typeof resolvePhoto>[];
+  offset: number;
+  reverse?: boolean;
+  duration: number;
+  onOpen: (index: number) => void;
+}) {
+  // Rotate the order so the two rows don't show the same photos side by side
+  const row = photos.map((_, i) => (i + offset) % photos.length);
 
   return (
-    <section ref={albumSection.elementRef} className="py-20 px-6 bg-white scroll-snap-start">
-      <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-16 transition-all duration-1000 ${
-          albumSection.isVisible 
-            ? "animate-fadeInUp opacity-100" 
-            : "opacity-0 translate-y-8"
-        }`}>
-          <h2 className="text-4xl md:text-5xl font-eb-garamond text-gray-800 mb-4">
-            ALBUM ẢNH
-          </h2>
-        
-        </div>
-
-        {/* Mobile Carousel */}
-        <div className="md:hidden relative max-w-4xl mx-auto">
-          <div className="overflow-hidden rounded-3xl shadow-2xl">
-            <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+    <div className="marquee group">
+      <div
+        className={`marquee-track ${reverse ? "marquee-reverse" : ""}`}
+        style={{ animationDuration: `${duration}s` }}
+      >
+        {[...row, ...row].map((photoIndex, i) => {
+          const photo = photos[photoIndex];
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => onOpen(photoIndex)}
+              aria-hidden={i >= row.length}
+              tabIndex={i >= row.length ? -1 : 0}
+              className="album-card"
+              style={{ rotate: `${i % 2 === 0 ? -2 : 2}deg` }}
             >
-              {photos.map((photo, index) => {
-                const resolved = resolvePhoto(photo);
-                return (
-                <div key={index} className="w-full flex-shrink-0">
-                  <AspectRatio ratio={3 / 4}>
-                    <img
-                      src={resolved.src || "/placeholder.svg"}
-                      alt={resolved.alt ?? `Wedding memory ${index + 1}`}
-                      className={`w-full h-full object-cover ${resolved.className}`}
-                      style={resolved.style}
-                    />
-                  </AspectRatio>
-                </div>
-              );
-              })}
-            </div>
-          </div>
-
-          {/* Navigation Buttons */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg border border-gray-200/50 hover:bg-white transition-all duration-300 hover:scale-110"
-          >
-            <ChevronLeft className="w-6 h-6 text-gray-700" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg border border-gray-200/50 hover:bg-white transition-all duration-300 hover:scale-110"
-          >
-            <ChevronRight className="w-6 h-6 text-gray-700" />
-          </button>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {photos.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setIsUserInteracting(true);
-                  setCurrentSlide(index);
-                }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide
-                    ? "bg-rose-500 scale-125"
-                    : "bg-gray-300 hover:bg-gray-400"
-                }`}
+              <img
+                src={photo.src}
+                alt={photo.alt ?? `Khoảnh khắc ${photoIndex + 1}`}
+                loading="lazy"
+                className={`w-full h-full object-cover ${photo.className}`}
+                style={photo.style}
               />
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop Album Layout */}
-        <div className="hidden md:block relative">
-          <div
-            className="flex items-center justify-center gap-6 transition-transform duration-500 ease-out"
-            key={`desktop-track-${currentSlide}`}
-          >
-            {/* Left Photo */}
-            <div className="flex-shrink-0">
-              {(() => {
-                const leftPhoto = resolvePhoto(
-                  photos[(currentSlide + photos.length - 1) % photos.length]
-                );
-                return (
-                  <img
-                    src={leftPhoto.src || "/placeholder.svg"}
-                    alt={leftPhoto.alt ?? "Wedding memory"}
-                    className={`w-80 h-96 object-cover rounded-2xl shadow-xl animate-fadeSwap ${leftPhoto.className}`}
-                    style={leftPhoto.style}
-                  />
-                );
-              })()}
-            </div>
-
-            {/* Center Main Photo */}
-            <div className="flex-shrink-0">
-              {(() => {
-                const centerPhoto = resolvePhoto(photos[currentSlide]);
-                return (
-                  <img
-                    src={centerPhoto.src || "/placeholder.svg"}
-                    alt={centerPhoto.alt ?? "Main wedding portrait"}
-                    className={`w-96 h-[500px] object-cover rounded-2xl shadow-2xl animate-fadeSwap ${centerPhoto.className}`}
-                    style={centerPhoto.style}
-                  />
-                );
-              })()}
-            </div>
-
-            {/* Right Photo */}
-            <div className="flex-shrink-0">
-              {(() => {
-                const rightPhoto = resolvePhoto(
-                  photos[(currentSlide + 1) % photos.length]
-                );
-                return (
-                  <img
-                    src={rightPhoto.src || "/placeholder.svg"}
-                    alt={rightPhoto.alt ?? "Wedding memory"}
-                    className={`w-80 h-96 object-cover rounded-2xl shadow-xl animate-fadeSwap ${rightPhoto.className}`}
-                    style={rightPhoto.style}
-                  />
-                );
-              })()}
-            </div>
-          </div>
-
-          {/* Navigation Buttons for Desktop */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg border border-gray-200/50 hover:bg-white transition-all duration-300 hover:scale-110 z-20 cursor-pointer"
-          >
-            <ChevronLeft className="w-8 h-8 text-gray-700" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg border border-gray-200/50 hover:bg-white transition-all duration-300 hover:scale-110 z-20 cursor-pointer"
-          >
-            <ChevronRight className="w-8 h-8 text-gray-700" />
-          </button>
-        </div>
+            </button>
+          );
+        })}
       </div>
+    </div>
+  );
+}
+
+export default function PhotoAlbum({ photos, secondsPerPhoto = 7 }: PhotoAlbumProps) {
+  const albumSection = useScrollEffects({ threshold: 0.1 });
+  const resolved = photos.map(resolvePhoto);
+  const [active, setActive] = useState<number | null>(null);
+
+  const step = useCallback(
+    (dir: number) =>
+      setActive((prev) => (prev === null ? prev : (prev + dir + resolved.length) % resolved.length)),
+    [resolved.length]
+  );
+
+  useEffect(() => {
+    if (active === null) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") step(1);
+      else if (event.key === "ArrowLeft") step(-1);
+      else if (event.key === "Escape") setActive(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [active, step]);
+
+  const duration = resolved.length * secondsPerPhoto;
+
+  return (
+    <section ref={albumSection.elementRef} className="paper-bg py-20 overflow-hidden">
+      <div
+        className={`text-center mb-12 px-6 transition-all duration-1000 ${
+          albumSection.isVisible ? "animate-fadeInUp opacity-100" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <h2 className="font-great-vibes text-5xl md:text-6xl text-[#7a2a2a]">Album hình cưới</h2>
+        <p className="mt-3 font-quicksand text-sm text-[#9a5a5a]">Chạm vào ảnh để xem lớn hơn</p>
+      </div>
+
+      <div
+        className={`space-y-6 sm:space-y-8 transition-opacity duration-1000 ${
+          albumSection.isVisible ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <MarqueeRow photos={resolved} offset={0} duration={duration} onOpen={setActive} />
+        <MarqueeRow
+          photos={resolved}
+          offset={Math.ceil(resolved.length / 2)}
+          reverse
+          duration={duration * 1.15}
+          onOpen={setActive}
+        />
+      </div>
+
+      {/* Lightbox */}
+      {active !== null && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/85 flex items-center justify-center animate-fadeSwap"
+          onClick={() => setActive(null)}
+        >
+          <img
+            key={active}
+            src={resolved[active].src}
+            alt={resolved[active].alt ?? "Ảnh cưới"}
+            className="max-h-[88vh] max-w-[92vw] object-contain rounded-xl shadow-2xl animate-fadeSwap"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            type="button"
+            onClick={() => setActive(null)}
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/15 text-white hover:bg-white/25"
+            aria-label="Đóng"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              step(-1);
+            }}
+            className="absolute left-3 sm:left-6 p-3 rounded-full bg-white/15 text-white hover:bg-white/25"
+            aria-label="Ảnh trước"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              step(1);
+            }}
+            className="absolute right-3 sm:right-6 p-3 rounded-full bg-white/15 text-white hover:bg-white/25"
+            aria-label="Ảnh sau"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

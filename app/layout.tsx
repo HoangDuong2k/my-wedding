@@ -2,33 +2,24 @@ import type React from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
 import { ClientLayout } from './client-layout'
+import { CONFIGURATION, EVENTS, formatDate } from '@/constants/configuration'
 
+const couple = `${CONFIGURATION.groomName} & ${CONFIGURATION.brideName}`
+const description = `Thiệp cưới online của ${couple} | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.`
+
+// TODO: thêm url, metadataBase và ảnh xem trước khi có tên miền
 export const metadata: Metadata = {
-    title: 'Thiệp mời Đám cưới Thạc Huy & Thúy Mây',
-    description: '28-12-2025 | Chúng mình cưới ♥',
+    title: `Thiệp mời Đám cưới ${couple}`,
+    description: `${EVENTS.map(formatDate).join(' & ')} | Chúng mình cưới ♥`,
     openGraph: {
-        title: 'Thạc Huy & Thúy Mây',
-        description:
-            'Thiệp cưới online của Thạc Huy & Thúy Mây | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.',
+        title: couple,
+        description,
         type: 'website',
-        url: 'https://nguyenthachuy.io.vn/',
-        images: [
-            {
-                url: 'https://pub-d4a5f515ee944b9ba6badb890bcaadf9.r2.dev/thumbnail-3.jpg',
-                width: 1200,
-                height: 630,
-                alt: 'Thạc Huy & Thuý Mây - Thiệp cưới online',
-            },
-        ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Thạc Huy & Thúy Mây',
-        description:
-            'Thiệp cưới online của Thạc Huy & Thúy Mây | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.',
-        images: [
-            'https://pub-d4a5f515ee944b9ba6badb890bcaadf9.r2.dev/thumbnail-3.jpg',
-        ],
+        title: couple,
+        description,
     },
     icons: {
         icon: [
@@ -47,7 +38,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang='en'>
+        <html lang='vi'>
             <body>
                 <ClientLayout>{children}</ClientLayout>
             </body>

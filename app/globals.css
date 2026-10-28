@@ -81,6 +81,8 @@
   --font-quicksand: var(--font-quicksand);
   --font-eb-garamond: var(--font-eb-garamond);
   --font-ballet: var(--font-ballet);
+  --font-cormorant: var(--font-cormorant);
+  --font-great-vibes: var(--font-great-vibes);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -452,4 +454,205 @@ html {
 * {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Paper background ---------- */
+.paper-bg {
+  background-color: #f8f5f2;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.9) 0, transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(236, 226, 220, 0.55) 0, transparent 45%),
+    radial-gradient(circle at 40% 90%, rgba(255, 255, 255, 0.7) 0, transparent 35%);
+}
+
+/* ---------- Falling hearts ---------- */
+.falling-heart {
+  position: absolute;
+  top: -40px;
+  display: block;
+  animation-name: heartFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@keyframes heartFall {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(-15deg);
+  }
+  25% {
+    transform: translate3d(var(--sway), 25vh, 0) rotate(10deg);
+  }
+  50% {
+    transform: translate3d(0, 55vh, 0) rotate(-10deg);
+  }
+  75% {
+    transform: translate3d(calc(var(--sway) * -1), 80vh, 0) rotate(12deg);
+  }
+  100% {
+    transform: translate3d(0, 110vh, 0) rotate(-8deg);
+  }
+}
+
+/* ---------- Door opening intro ---------- */
+.door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 6px),
+    linear-gradient(180deg, #8e2328 0%, #741a1f 55%, #5e1418 100%);
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.7, 0, 0.25, 1);
+}
+
+.door-left {
+  left: 0;
+  box-shadow: inset -12px 0 24px rgba(0, 0, 0, 0.25);
+  border-right: 2px solid #c9a066;
+  z-index: 2;
+}
+
+.door-right {
+  right: 0;
+  box-shadow: inset 12px 0 24px rgba(0, 0, 0, 0.25);
+  border-left: 1px solid #c9a066;
+}
+
+.door-open-left {
+  transform: translateX(-102%);
+}
+
+.door-open-right {
+  transform: translateX(102%);
+}
+
+.door-seal {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: clamp(72px, 14vw, 120px);
+  height: auto;
+  transform: translate(50%, -50%);
+}
+
+@keyframes sealPulse {
+  0%,
+  100% {
+    transform: translate(50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(50%, -50%) scale(1.06);
+  }
+}
+
+.animate-sealPulse {
+  animation: sealPulse 1.6s ease-in-out infinite;
+}
+
+/* ---------- Hero Ken Burns ---------- */
+@keyframes kenBurns {
+  from {
+    transform: scale(1.15);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-kenBurns {
+  animation: kenBurns 7s ease-out forwards;
+}
+
+/* ---------- Couple frames ---------- */
+.couple-frame {
+  aspect-ratio: 1 / 1.05;
+  overflow: hidden;
+  border: clamp(8px, 2.2vw, 14px) solid #6e1d1f;
+  background: #6e1d1f;
+  box-shadow: 0 18px 40px rgba(60, 10, 12, 0.35);
+}
+
+/* ---------- Calendar heart ---------- */
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.12);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-heartBeat {
+  animation: heartBeat 1.8s ease-in-out infinite;
+}
+
+/* ---------- Album marquee ---------- */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: clamp(12px, 2vw, 24px);
+  padding: 18px 0;
+  animation-name: marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    /* Track holds the photos twice; shifting half (plus half a gap) loops seamlessly */
+    transform: translate3d(calc(-50% - clamp(12px, 2vw, 24px) / 2), 0, 0);
+  }
+}
+
+.album-card {
+  flex-shrink: 0;
+  width: clamp(150px, 38vw, 260px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 5px solid #fff;
+  box-shadow: 0 10px 25px rgba(90, 20, 24, 0.18);
+  cursor: zoom-in;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.album-card:hover {
+  transform: scale(1.06) translateY(-4px);
+  box-shadow: 0 18px 35px rgba(90, 20, 24, 0.28);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .animate-kenBurns,
+  .animate-sealPulse,
+  .animate-heartBeat {
+    animation: none;
+  }
 }
