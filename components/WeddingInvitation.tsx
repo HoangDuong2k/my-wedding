@@ -15,6 +15,7 @@ import {
     type BankAccount,
     dayOfWeek,
     formatDate,
+    guestMoment,
     type WeddingEvent,
 } from '@/constants/configuration'
 import { useScrollEffects } from '@/hooks/use-scroll-effects'
@@ -86,8 +87,14 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
         const baseUrlEnv = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
         const baseUrl = baseUrlEnv.replace(/\/$/, '')
 
-        const eventLine = (ev: WeddingEvent) =>
-            `• ${ev.title} - ${ev.time} ${formatDate(ev)} (/${ev.slug})`
+        // Guest text is sent as Telegram Markdown, so its formatting characters must be escaped
+        const escapeMd = (text: string) => text.replace(/([_*`[])/g, '\\$1')
+
+        const eventLine = (ev: WeddingEvent) => {
+            const m = guestMoment(ev)
+            const what = m === ev ? ev.title : `${ev.title} (${m.title})`
+            return `• ${what} - ${m.time} ${formatDate(m)} (/${ev.slug})`
+        }
 
         // Gửi thông báo sang Telegram
         try {
@@ -95,11 +102,11 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
 🎉 *Phản hồi mời cưới mới!*
 🔗 *Thiệp:* ${events.length === 1 ? `/${events[0].slug}` : '/ (cả 2 lễ)'}
 
-👤 *Tên khách:* ${guestForm.name.trim()}
+👤 *Tên khách:* ${escapeMd(guestForm.name.trim())}
 ${accepted ? '✅ *Tham dự:* Có' : '❌ *Tham dự:* Không'}
 ${accepted ? `📍 *Dự lễ:*\n${attending.map(eventLine).join('\n')}` : ''}
 ${accepted ? `👥 *Số khách:* ${guestForm.guestCount}` : ''}
-${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : ''}
+${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.trim())}` : ''}
 
 📅 *Thời gian:* ${new Date().toLocaleString('vi-VN')}
         `
@@ -188,6 +195,8 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                     <div className='absolute inset-0 bg-black/10 md:bg-black/30'></div>
                     <div className='absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#5a1418] md:from-[#5a1418]/80 via-[#5a1418]/30 to-transparent'></div>
                 </div>
+                {/* Overlaps the photo's bottom edge on phones so no seam shows between photo and background */}
+                <div className='md:hidden absolute inset-x-0 top-[calc(62svh-3px)] bottom-0 bg-[#5a1418]'></div>
 
                 {/* Content Overlay */}
                 <div className='relative z-10 text-center text-white px-6 w-full max-w-3xl mx-auto mt-auto mb-10 sm:mb-14'>
@@ -209,30 +218,39 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                     </h1>
 
                     <div {...reveal(900)} className={`${reveal(900).className} mt-6 space-y-4 font-quicksand`}>
-                        {events.map((event) => (
-                            <div key={event.slug}>
-                                {events.length > 1 && (
-                                    <p className='uppercase tracking-[0.3em] text-xs sm:text-sm opacity-90 mb-1'>
-                                        {event.title}
+                        {events.map((event) => {
+                            const moment = guestMoment(event)
+                            return (
+                                <div key={event.slug}>
+                                    {events.length > 1 && (
+                                        <p className='uppercase tracking-[0.3em] text-xs sm:text-sm opacity-90 mb-1'>
+                                            {moment.title}
+                                        </p>
+                                    )}
+                                    <div className='flex items-center justify-center gap-4'>
+                                        <span className='h-px w-8 sm:w-16 bg-white/60'></span>
+                                        <span className='text-base sm:text-xl tracking-[0.2em]'>
+                                            {moment.time} · {formatDate(moment)}
+                                        </span>
+                                        <span className='h-px w-8 sm:w-16 bg-white/60'></span>
+                                    </div>
+                                    <p className='mt-1 uppercase tracking-[0.3em] text-xs sm:text-sm opacity-90'>
+                                        {dayOfWeek(moment)}
                                     </p>
-                                )}
-                                <div className='flex items-center justify-center gap-4'>
-                                    <span className='h-px w-8 sm:w-16 bg-white/60'></span>
-                                    <span className='text-base sm:text-xl tracking-[0.2em]'>
-                                        {event.time} · {formatDate(event)}
-                                    </span>
-                                    <span className='h-px w-8 sm:w-16 bg-white/60'></span>
+                                    {events.length === 1 && (
+                                        <p className='mt-4 text-xs sm:text-sm opacity-90 leading-relaxed'>
+                                            {moment.venue && (
+                                                <>
+                                                    {moment.venue}
+                                                    <br />
+                                                </>
+                                            )}
+                                            {moment.address ?? event.address}
+                                        </p>
+                                    )}
                                 </div>
-                                <p className='mt-1 uppercase tracking-[0.3em] text-xs sm:text-sm opacity-90'>
-                                    {dayOfWeek(event)}
-                                </p>
-                                {events.length === 1 && (
-                                    <p className='mt-4 text-xs sm:text-sm opacity-90 leading-relaxed'>
-                                        {event.address}
-                                    </p>
-                                )}
-                            </div>
-                        ))}
+                            )
+                        })}
                     </div>
 
                     {/* Action Icons */}
@@ -240,7 +258,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                         <button
                             onClick={() =>
                                 events.length === 1
-                                    ? window.open(events[0].mapUrl, '_blank')
+                                    ? window.open(guestMoment(events[0]).mapUrl ?? events[0].mapUrl, '_blank')
                                     : scrollToSection('events')
                             }
                             className='p-3 sm:p-4 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer'
@@ -322,7 +340,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                                     <img
                                         src={account.qr}
                                         alt={`QR chuyển khoản ${account.label.toLowerCase()}`}
-                                        className='w-full h-auto object-contain bg-white cursor-pointer'
+                                        className='w-full aspect-square object-contain bg-white cursor-pointer'
                                     />
                                 </button>
                                 <div className='mt-5 space-y-1.5 font-quicksand text-gray-800 text-center'>
@@ -490,11 +508,12 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                                                     )}
                                                     <span className='font-quicksand text-gray-700'>
                                                         <span className='font-semibold text-[#7a2a2a]'>
-                                                            {ev.title}
+                                                            {guestMoment(ev).title}
                                                         </span>{' '}
-                                                        · {ev.time} {dayOfWeek(ev)}, {formatDate(ev)}
+                                                        · {guestMoment(ev).time} {dayOfWeek(guestMoment(ev))},{' '}
+                                                        {formatDate(guestMoment(ev))}
                                                         <span className='block text-sm text-gray-500 mt-0.5'>
-                                                            {ev.address}
+                                                            {guestMoment(ev).venue ?? ev.venue} – {guestMoment(ev).address ?? ev.address}
                                                         </span>
                                                     </span>
                                                 </label>

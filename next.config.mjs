@@ -6,19 +6,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // All images are served from /public, so the image optimizer accepts no remote hosts
   images: {
-    // unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**", // Cho phép mọi domain
-      },
-      {
-        protocol: "http",
-        hostname: "**",
-      },
-    ],
-    // domains: ["nguyenthachuy.io.vn"],
+    qualities: [75, 85, 90, 100],
   },
 };
 

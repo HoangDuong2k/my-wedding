@@ -113,10 +113,10 @@ export default function CoupleSection() {
             </div>
 
             <div className='relative mx-auto w-full max-w-[640px] aspect-[4/5]'>
-                {/* Bride: top-left photo, name on the right */}
+                {/* Groom: top-left photo, name on the right */}
                 <div className='absolute left-[2%] top-[6%] w-[50%] sm:w-[56%]'>
                     <TiltedPhoto
-                        person={bride}
+                        person={groom}
                         rotate='-14deg'
                         visible={isVisible}
                         from='translateX(-30px)'
@@ -124,16 +124,16 @@ export default function CoupleSection() {
                 </div>
                 <div className='absolute right-0 top-[16%] w-[46%] sm:w-[42%]'>
                     <NameLabel
-                        person={bride}
+                        person={groom}
                         visible={isVisible}
                         delay='delay-500'
                     />
                 </div>
 
-                {/* Groom: bottom-right photo, name on the left */}
+                {/* Bride: bottom-right photo, name on the left */}
                 <div className='absolute right-[2%] top-[44%] w-[50%] sm:w-[56%]'>
                     <TiltedPhoto
-                        person={groom}
+                        person={bride}
                         rotate='14deg'
                         visible={isVisible}
                         from='translateX(30px)'
@@ -141,7 +141,7 @@ export default function CoupleSection() {
                 </div>
                 <div className='absolute left-0 top-[62%] w-[46%] sm:w-[42%]'>
                     <NameLabel
-                        person={groom}
+                        person={bride}
                         visible={isVisible}
                         delay='delay-700'
                     />

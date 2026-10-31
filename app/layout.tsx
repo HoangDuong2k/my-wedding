@@ -2,7 +2,7 @@ import type React from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
 import { ClientLayout } from './client-layout'
-import { CONFIGURATION, EVENTS, formatDate } from '@/constants/configuration'
+import { CONFIGURATION, EVENTS, formatDate, guestMoment } from '@/constants/configuration'
 
 const couple = `${CONFIGURATION.groomName} & ${CONFIGURATION.brideName}`
 const description = `Thiệp cưới online của ${couple} | Nơi gửi gắm lời mời trân trọng và những câu chuyện tình yêu thật đẹp.`
@@ -10,7 +10,7 @@ const description = `Thiệp cưới online của ${couple} | Nơi gửi gắm l
 // TODO: thêm url, metadataBase và ảnh xem trước khi có tên miền
 export const metadata: Metadata = {
     title: `Thiệp mời Đám cưới ${couple}`,
-    description: `${EVENTS.map(formatDate).join(' & ')} | Chúng mình cưới ♥`,
+    description: `${EVENTS.map((e) => formatDate(guestMoment(e))).join(' & ')} | Chúng mình cưới ♥`,
     openGraph: {
         title: couple,
         description,

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { eventDate, type WeddingEvent } from '@/constants/configuration'
+import { eventDate, guestMoment, type SideEvent, type WeddingEvent } from '@/constants/configuration'
 import { useScrollEffects } from '@/hooks/use-scroll-effects'
 
 const WEEKDAYS = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']
@@ -42,7 +42,7 @@ function useCountdown(targets: Date[]) {
     }
 }
 
-function MonthGrid({ year, month, events }: { year: number; month: number; events: WeddingEvent[] }) {
+function MonthGrid({ year, month, events }: { year: number; month: number; events: SideEvent[] }) {
     // Monday-first grid: leading blanks, then the days of the month
     const firstWeekday = (new Date(year, month - 1, 1).getDay() + 6) % 7
     const daysInMonth = new Date(year, month, 0).getDate()
@@ -81,7 +81,7 @@ function MonthGrid({ year, month, events }: { year: number; month: number; event
 
             <div className='mt-6 space-y-1'>
                 {events.map((e) => (
-                    <p key={e.slug} className='font-quicksand text-[#7a2a2a]'>
+                    <p key={e.title} className='font-quicksand text-[#7a2a2a]'>
                         <span className='font-semibold'>{pad(e.day)}</span> · {e.title} · {e.time}
                     </p>
                 ))}
@@ -92,11 +92,13 @@ function MonthGrid({ year, month, events }: { year: number; month: number; event
 
 export default function WeddingCalendar({ events }: { events: WeddingEvent[] }) {
     const { elementRef, isVisible } = useScrollEffects({ threshold: 0.2 })
-    const countdown = useCountdown(events.map(eventDate))
+    // Count down to the date guests are invited to, but mark every ceremony and side event
+    const countdown = useCountdown(events.map(guestMoment).map(eventDate))
+    const moments = events.flatMap((e) => [e, ...(e.extras ?? [])])
 
     // One calendar per month that has an event
-    const months = new Map<string, WeddingEvent[]>()
-    for (const e of [...events].sort((a, b) => eventDate(a).getTime() - eventDate(b).getTime())) {
+    const months = new Map<string, SideEvent[]>()
+    for (const e of [...moments].sort((a, b) => eventDate(a).getTime() - eventDate(b).getTime())) {
         const key = `${e.year}-${e.month}`
         months.set(key, [...(months.get(key) ?? []), e])
     }
