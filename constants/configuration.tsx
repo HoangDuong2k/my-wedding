@@ -71,11 +71,8 @@ export const formatDate = (e: WeddingEvent) =>
 
 export const CONFIGURATION = {
     groomFirst: true,
-    // Short names for the banner and seals, full names for the introduction
     groomName: 'Việt Hoàng',
     brideName: 'Thu Hường',
-    groomFullName: 'Dương Việt Hoàng',
-    brideFullName: 'Bùi Thị Thu Hường',
 }
 
 export type BankAccount = {

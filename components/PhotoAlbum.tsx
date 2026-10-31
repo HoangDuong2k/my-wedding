@@ -106,7 +106,6 @@ export default function PhotoAlbum({ photos, secondsPerPhoto = 7 }: PhotoAlbumPr
         }`}
       >
         <h2 className="font-great-vibes text-5xl md:text-6xl text-[#7a2a2a]">Album hình cưới</h2>
-        <p className="mt-3 font-quicksand text-sm text-[#9a5a5a]">Chạm vào ảnh để xem lớn hơn</p>
       </div>
 
       <div

@@ -8,7 +8,6 @@ import WaxSeal from './WaxSeal'
 type Person = {
     role: string
     name: string
-    shortName: string
     photo: string
     objectPosition: string
 }
@@ -37,34 +36,21 @@ const NameLabel = ({
     person: Person
     visible: boolean
     delay: string
-}) => {
-    // Family + middle names on one line, the given name larger on the next
-    const prefix = person.name.endsWith(person.shortName)
-        ? person.name.slice(0, -person.shortName.length).trim()
-        : ''
-    return (
-        <div
-            className={`text-center transition-all duration-1000 ${delay} ${
-                visible
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-6'
-            }`}
-        >
-            <p className='font-eb-garamond font-bold text-[#7a2a2a] text-xl sm:text-3xl'>
-                {person.role}
-            </p>
-            {prefix && (
-                <p className='font-cormorant uppercase text-[#7a2a2a] text-sm sm:text-xl tracking-[0.2em] mt-1'>
-                    {prefix}
-                </p>
-            )}
-            <p className='font-cormorant font-light uppercase text-[#7a2a2a] text-lg sm:text-3xl tracking-[0.06em] leading-tight'>
-                {prefix ? person.shortName : person.name}
-            </p>
-            <NameFlourish />
-        </div>
-    )
-}
+}) => (
+    <div
+        className={`text-center transition-all duration-1000 ${delay} ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+    >
+        <p className='font-eb-garamond font-bold text-[#7a2a2a] text-xl sm:text-3xl'>
+            {person.role}
+        </p>
+        <p className='font-cormorant font-light uppercase text-[#7a2a2a] text-xl sm:text-3xl tracking-[0.06em] leading-tight mt-1'>
+            {person.name}
+        </p>
+        <NameFlourish />
+    </div>
+)
 
 const TiltedPhoto = ({
     person,
@@ -103,16 +89,14 @@ export default function CoupleSection() {
 
     const bride: Person = {
         role: 'Cô Dâu',
-        name: CONFIGURATION.brideFullName,
-        shortName: CONFIGURATION.brideName,
-        photo: '/the_bride_avatar.jpg',
+        name: CONFIGURATION.brideName,
+        photo: '/photos/bride.jpg',
         objectPosition: 'center 20%',
     }
     const groom: Person = {
         role: 'Chú Rể',
-        name: CONFIGURATION.groomFullName,
-        shortName: CONFIGURATION.groomName,
-        photo: '/the_groom_avatar.jpg',
+        name: CONFIGURATION.groomName,
+        photo: '/photos/groom.jpg',
         objectPosition: 'center 20%',
     }
     const initials = coupleInitials()

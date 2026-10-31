@@ -53,37 +53,10 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
         style: { transitionDelay: `${delay}ms` },
     })
 
-    const carouselPhotos = [
-        {
-            src: '/carosel_1.jpg',
-        },
-        {
-            src: '/carosel_3.jpg',
-        },
-        {
-            src: '/carosel_4.jpg',
-            style: {},
-        },
-        {
-            src: '/carosel_5.jpg',
-            // style: { objectPosition: "-70px top" },
-            alt: 'Khoảnh khắc 5',
-        },
-        {
-            src: '/carosel_6.jpg',
-            // style: { objectPosition: "center 0px" },
-        },
-        '/carosel_7.jpg',
-        {
-            src: '/carosel_8.jpg',
-            // style: { objectPosition: "-200px top" },
-        },
-        {
-            src: '/carosel_9.jpg',
-            // style: { objectPosition: "-40px top" },
-        },
-        '/carosel_2.jpg',
-    ]
+    const carouselPhotos = Array.from(
+        { length: 10 },
+        (_, i) => `/photos/album/album-${String(i + 1).padStart(2, '0')}.jpg`,
+    )
 
     const scrollToSection = (sectionId: string) => {
         const element = document.getElementById(sectionId)
@@ -200,20 +173,20 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <FallingHearts />
 
             {/* Hero Banner Section */}
-            <section className='relative h-[100svh] flex items-center justify-center overflow-hidden'>
-                {/* One banner photo for every screen size; slow zoom-out once opened */}
-                <div className='absolute inset-0'>
+            <section className='relative h-[100svh] flex items-center justify-center overflow-hidden bg-[#5a1418] md:bg-transparent'>
+                {/* Landscape banner: full-bleed on desktop; on phones it fills the top part so both faces stay in frame */}
+                <div className='absolute inset-x-0 top-0 h-[62svh] md:h-auto md:inset-0 overflow-hidden'>
                     <Image
-                        src='/banner_desktop.jpg'
-                        alt='Wedding couple'
+                        src='/photos/banner.jpg'
+                        alt={`${CONFIGURATION.groomName} & ${CONFIGURATION.brideName}`}
                         fill
                         priority
                         sizes='100vw'
-                        quality={90}
-                        className={`object-cover object-center ${opened ? 'animate-kenBurns' : 'scale-110'}`}
+                        quality={85}
+                        className={`object-cover object-[50%_30%] ${opened ? 'animate-kenBurns' : 'scale-110'}`}
                     />
-                    <div className='absolute inset-0 bg-black/30'></div>
-                    <div className='absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#5a1418]/80 via-[#5a1418]/30 to-transparent'></div>
+                    <div className='absolute inset-0 bg-black/10 md:bg-black/30'></div>
+                    <div className='absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#5a1418] md:from-[#5a1418]/80 via-[#5a1418]/30 to-transparent'></div>
                 </div>
 
                 {/* Content Overlay */}
@@ -226,11 +199,11 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                         {...reveal(600)}
                         className={`${reveal(600).className} mt-3 font-cormorant uppercase font-light tracking-[0.12em] text-3xl sm:text-5xl leading-tight`}
                     >
-                        <span className='block lg:inline'>
+                        <span className='block'>
                             {CONFIGURATION.groomFirst ? CONFIGURATION.groomName : CONFIGURATION.brideName}
                         </span>
-                        <span className='block lg:inline font-great-vibes normal-case lg:mx-4 text-4xl sm:text-5xl'>&</span>
-                        <span className='block lg:inline'>
+                        <span className='block font-great-vibes normal-case text-4xl sm:text-5xl'>&</span>
+                        <span className='block'>
                             {CONFIGURATION.groomFirst ? CONFIGURATION.brideName : CONFIGURATION.groomName}
                         </span>
                     </h1>
@@ -623,7 +596,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
             <section
                 ref={thankYouSection.elementRef}
                 id='thank-you'
-                className='py-24 px-6 paper-bg'
+                className='pt-24 pb-12 px-6 paper-bg'
             >
                 <div className='max-w-4xl mx-auto'>
                     <div
@@ -646,7 +619,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                         {/* Arched photo */}
                         <div className='relative w-[300] h-[400px] rounded-[160px] sm:w-[380px] sm:h-[540px] sm:rounded-[180px]  overflow-hidden shadow-xl border-2 border-rose-300 bg-white'>
                             <Image
-                                src='/thankyou_bride_groom.jpg'
+                                src='/photos/thank-you.jpg'
                                 alt='Bride and Groom'
                                 className='w-full h-full object-cover'
                                 width={376}
@@ -662,7 +635,6 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${guestForm.wishes.trim()}` : 
                     </div>
                 </div>
             </section>
-            <section className='h-30'></section>
             {/* Music */}
             <AudioWedding />
         </div>
