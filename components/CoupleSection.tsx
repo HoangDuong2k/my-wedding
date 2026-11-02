@@ -84,7 +84,7 @@ const TiltedPhoto = ({
     </div>
 )
 
-export default function CoupleSection({ brideFirst = false }: { brideFirst?: boolean }) {
+export default function CoupleSection() {
     const { elementRef, isVisible } = useScrollEffects({ threshold: 0.25 })
 
     const bride: Person = {
@@ -99,9 +99,7 @@ export default function CoupleSection({ brideFirst = false }: { brideFirst?: boo
         photo: '/photos/groom.jpg',
         objectPosition: 'center 20%',
     }
-    // Whoever is listed first takes the top-left frame
-    const [first, second] = brideFirst ? [bride, groom] : [groom, bride]
-    const initials = coupleInitials(brideFirst)
+    const initials = coupleInitials()
 
     return (
         <section
@@ -115,10 +113,10 @@ export default function CoupleSection({ brideFirst = false }: { brideFirst?: boo
             </div>
 
             <div className='relative mx-auto w-full max-w-[640px] aspect-[4/4.4] sm:aspect-[4/4.8]'>
-                {/* First person: top-left photo, name on the right */}
+                {/* Groom: top-left photo, name on the right */}
                 <div className='absolute left-[2%] top-[6%] w-[50%] sm:w-[56%]'>
                     <TiltedPhoto
-                        person={first}
+                        person={groom}
                         rotate='-14deg'
                         visible={isVisible}
                         from='translateX(-30px)'
@@ -126,16 +124,16 @@ export default function CoupleSection({ brideFirst = false }: { brideFirst?: boo
                 </div>
                 <div className='absolute right-0 top-[16%] w-[46%] sm:w-[42%]'>
                     <NameLabel
-                        person={first}
+                        person={groom}
                         visible={isVisible}
                         delay='delay-500'
                     />
                 </div>
 
-                {/* Second person: bottom-right photo, name on the left */}
+                {/* Bride: bottom-right photo, name on the left */}
                 <div className='absolute right-[2%] top-[44%] w-[50%] sm:w-[56%]'>
                     <TiltedPhoto
-                        person={second}
+                        person={bride}
                         rotate='14deg'
                         visible={isVisible}
                         from='translateX(30px)'
@@ -143,7 +141,7 @@ export default function CoupleSection({ brideFirst = false }: { brideFirst?: boo
                 </div>
                 <div className='absolute left-0 top-[62%] w-[46%] sm:w-[42%]'>
                     <NameLabel
-                        person={second}
+                        person={bride}
                         visible={isVisible}
                         delay='delay-700'
                     />

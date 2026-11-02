@@ -290,7 +290,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
                 </div>
             </section>
 
-            <CoupleSection brideFirst={brideFirst} />
+            <CoupleSection />
 
             <EventsSection events={events} />
 
