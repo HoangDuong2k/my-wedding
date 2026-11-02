@@ -52,57 +52,52 @@ const MusicTurnOffIcon = (
 }
 
 const AudioWedding = () => {
+    // Mirrors the audio element's own play/pause events, so the icon always matches what is heard
     const [isPlaying, setIsPlaying] = useState(false)
     const [visible, setVisible] = useState(false)
-    const [audioMounted, setAudioMounted] = useState(false)
 
     const audioRef = useRef<HTMLAudioElement>(null)
+    const buttonRef = useRef<HTMLDivElement>(null)
 
-    const handleToggle = () => {
-        setIsPlaying((prev) => {
-            const next = !prev
-            if (audioRef.current) {
-                if (next) {
-                    audioRef.current.play()
-                } else {
-                    audioRef.current.pause()
-                }
-            }
-            return next
-        })
+    // Browsers may block playback until the guest interacts; a blocked attempt simply stays paused
+    const tryPlay = () => {
+        audioRef.current?.play().catch(() => {})
     }
 
-    const firstRef = useRef(true)
+    const handleToggle = () => {
+        const audio = audioRef.current
+        if (!audio) return
+        if (audio.paused) tryPlay()
+        else audio.pause()
+    }
 
     useEffect(() => {
-        const handleScroll = () => {
-            console.log('Scroll Y:', {
-                scrollY: window.scrollY,
-                innerWidth: window.innerWidth,
-            })
-            const scrollY = window.scrollY
-            if (scrollY > 50 && firstRef.current) {
-                firstRef.current = false
-                setVisible(true)
-                setAudioMounted(true)
-
-                // Try to autoplay on mobile after scroll interaction
-                setTimeout(() => {
-                    const isMobile = window.innerWidth <= 768
-                    if (isMobile && audioRef.current) {
-                        audioRef.current.play().then(() => {
-                            setIsPlaying(true)
-                        }).catch((error) => {
-                            console.log('Autoplay blocked:', error)
-                            // Autoplay was blocked, user needs to tap the button
-                        })
-                    }
-                }, 100)
-            }
+        let started = false
+        const start = () => {
+            if (started) return
+            started = true
+            setVisible(true)
+            tryPlay()
         }
-        window.addEventListener('scroll', handleScroll)
-        handleScroll()
-        return () => window.removeEventListener('scroll', handleScroll)
+
+        const handleScroll = () => {
+            if (window.scrollY > 50) start()
+        }
+        // The first tap/click/key counts as permission to play, e.g. tapping to open the doors.
+        // Taps on the music button itself are left to handleToggle.
+        const handleInteraction = (e: Event) => {
+            if (buttonRef.current?.contains(e.target as Node)) return
+            start()
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        window.addEventListener('pointerdown', handleInteraction)
+        window.addEventListener('keydown', handleInteraction)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+            window.removeEventListener('pointerdown', handleInteraction)
+            window.removeEventListener('keydown', handleInteraction)
+        }
     }, [])
 
     return (
@@ -121,6 +116,7 @@ const AudioWedding = () => {
                 cursor: 'pointer',
                 visibility: visible ? 'visible' : 'hidden',
             }}
+            ref={buttonRef}
             onClick={handleToggle}
             title={isPlaying ? 'Tắt nhạc' : 'Bật nhạc'}
         >
@@ -140,15 +136,18 @@ const AudioWedding = () => {
                     <MusicTurnOffIcon className='text-[#474747]' />
                 )}
             </span>
-            {audioMounted && (
-                <audio
-                    ref={audioRef}
-                    src='audio-wedding2.mp3'
-                    autoPlay
-                    loop
-                    style={{ display: 'none' }}
-                />
-            )}
+            <audio
+                ref={audioRef}
+                src='/audio-wedding2.mp3'
+                preload='none'
+                loop
+                onPlay={() => {
+                    setIsPlaying(true)
+                    setVisible(true)
+                }}
+                onPause={() => setIsPlaying(false)}
+                style={{ display: 'none' }}
+            />
             <style>
                 {`
           @keyframes spin {
