@@ -10,6 +10,8 @@ export type SideEvent = {
     month: number
     year: number
     lunarDate?: string
+    // Guests can confirm attendance to this gathering separately from the ceremony
+    rsvp?: boolean
     venue?: string
     address?: ReactNode
     mapUrl?: string
@@ -29,6 +31,8 @@ export type WeddingEvent = {
     lunarDate: string
     address: ReactNode
     mapUrl: string
+    // 1200x630 image shown when this event's link is shared on Zalo/Facebook
+    shareImage: string
     extras?: SideEvent[]
     // Index into extras of the gathering guests are invited to, when it is not the ceremony itself;
     // the banner, calendar, countdown and RSVP use that date instead
@@ -51,9 +55,11 @@ export const EVENTS: WeddingEvent[] = [
         lunarDate: 'Ngày 08 tháng 10 năm Bính Ngọ',
         address: 'Thôn Hợp Tiến, xã Cao Phong, tỉnh Phú Thọ',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=20.737702819209584,105.3525185173112',
+        shareImage: '/photos/og-huong.jpg',
         extras: [
             {
                 title: 'Bữa cơm thân mật',
+                rsvp: true,
                 time: '16:30',
                 day: 15,
                 month: 11,
@@ -78,6 +84,7 @@ export const EVENTS: WeddingEvent[] = [
         lunarDate: 'Ngày 21 tháng 10 năm Bính Ngọ',
         address: 'Số 158 đường Trần Phú, phường Thành Sen, tỉnh Hà Tĩnh',
         mapUrl: NGAN_HA_HOTEL_MAP,
+        shareImage: '/photos/og-hoang.jpg',
         extras: [
             {
                 title: 'Lễ rước dâu',
@@ -132,8 +139,12 @@ export const dayOfWeek = (e: WeddingEvent | SideEvent) => WEEKDAYS[eventDate(e).
 export const formatDate = (e: WeddingEvent | SideEvent) =>
     `${String(e.day).padStart(2, '0')}.${String(e.month).padStart(2, '0')}.${e.year}`
 
+export const SITE = {
+    url: 'https://gaosausubebi.io.vn',
+    shareImage: '/photos/og.jpg',
+}
+
 export const CONFIGURATION = {
-    groomFirst: true,
     groomName: 'Việt Hoàng',
     brideName: 'Thu Hường',
 }
@@ -166,10 +177,28 @@ export const BANK_ACCOUNTS: BankAccount[] = [
     },
 ]
 
+// Everything a guest can confirm attending, in date order: each ceremony plus its RSVP-able side events
+export type RsvpOption = { key: string; event: WeddingEvent; moment: SideEvent }
+
+export const rsvpOptions = (events: WeddingEvent[]): RsvpOption[] =>
+    events
+        .flatMap((event) =>
+            [...(event.extras ?? []).filter((x) => x.rsvp), event].map((moment) => ({
+                key: `${event.slug}:${moment.title}`,
+                event,
+                moment,
+            })),
+        )
+        .sort((a, b) => eventDate(a.moment).getTime() - eventDate(b.moment).getTime())
+
+// Names in display order; the bride's own invitation (/huong) lists her first, like the printed card
+export const coupleOrder = (brideFirst = false) =>
+    brideFirst
+        ? [CONFIGURATION.brideName, CONFIGURATION.groomName]
+        : [CONFIGURATION.groomName, CONFIGURATION.brideName]
+
 // Initials for the wax seals, e.g. "H&H"
-export const coupleInitials = () => {
-    const initial = (name: string) => name.trim().split(' ').pop()?.[0] ?? ''
-    return CONFIGURATION.groomFirst
-        ? `${initial(CONFIGURATION.groomName)}&${initial(CONFIGURATION.brideName)}`
-        : `${initial(CONFIGURATION.brideName)}&${initial(CONFIGURATION.groomName)}`
-}
+export const coupleInitials = (brideFirst = false) =>
+    coupleOrder(brideFirst)
+        .map((name) => name.trim().split(' ').pop()?.[0] ?? '')
+        .join('&')

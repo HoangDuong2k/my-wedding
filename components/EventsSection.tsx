@@ -66,12 +66,9 @@ export default function EventsSection({ events }: { events: WeddingEvent[] }) {
         events.length === 1 && events[0].side === 'bride' ? ['bride', 'groom'] : ['groom', 'bride']
 
     return (
-        <section ref={elementRef} id='events' className='paper-bg py-16 sm:py-20 px-6'>
+        <section ref={elementRef} id='events' className='paper-bg py-12 sm:py-16 px-6'>
             <div className='text-center mb-8'>
-                <p className='font-quicksand uppercase tracking-[0.3em] text-sm text-[#9a5a5a]'>
-                    Trân trọng kính mời
-                </p>
-                <h2 className='font-great-vibes text-5xl sm:text-6xl text-[#7a2a2a] mt-2'>
+                <h2 className='font-great-vibes text-5xl sm:text-6xl text-[#7a2a2a]'>
                     {events.length > 1 ? 'Sự kiện cưới' : events[0].title}
                 </h2>
             </div>
@@ -117,6 +114,15 @@ export default function EventsSection({ events }: { events: WeddingEvent[] }) {
                     >
                         <div className='absolute inset-2 rounded-[22px] border border-dashed border-[#d7b2b2] pointer-events-none'></div>
 
+                        {/* Side events happen first (the dinner the day before, the bride's procession), so they lead */}
+                        {event.extras && event.extras.length > 0 && (
+                            <div className='relative mb-8 space-y-3'>
+                                {event.extras.map((extra) => (
+                                    <ExtraItem key={extra.title} extra={extra} />
+                                ))}
+                            </div>
+                        )}
+
                         <h3 className='font-eb-garamond font-semibold uppercase tracking-[0.2em] text-xl text-[#7a2a2a]'>
                             {event.title}
                         </h3>
@@ -137,14 +143,6 @@ export default function EventsSection({ events }: { events: WeddingEvent[] }) {
                             <MapPin className='w-4 h-4' />
                             Chỉ đường
                         </a>
-
-                        {event.extras && event.extras.length > 0 && (
-                            <div className='relative mt-6 space-y-3'>
-                                {event.extras.map((extra) => (
-                                    <ExtraItem key={extra.title} extra={extra} />
-                                ))}
-                            </div>
-                        )}
                     </div>
                 ))}
             </div>

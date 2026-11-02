@@ -104,7 +104,7 @@ export default function WeddingCalendar({ events }: { events: WeddingEvent[] }) 
     }
 
     return (
-        <section ref={elementRef} id='calendar' className='paper-bg py-16 sm:py-24 px-6'>
+        <section ref={elementRef} id='calendar' className='paper-bg py-12 sm:py-16 px-6'>
             <div
                 className={`max-w-md mx-auto text-center transition-all duration-1000 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'

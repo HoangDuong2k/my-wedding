@@ -99,9 +99,9 @@ export default function PhotoAlbum({ photos, secondsPerPhoto = 7 }: PhotoAlbumPr
   const duration = resolved.length * secondsPerPhoto;
 
   return (
-    <section ref={albumSection.elementRef} className="paper-bg py-20 overflow-hidden">
+    <section ref={albumSection.elementRef} className="paper-bg py-12 sm:py-16 overflow-hidden">
       <div
-        className={`text-center mb-12 px-6 transition-all duration-1000 ${
+        className={`text-center mb-8 px-6 transition-all duration-1000 ${
           albumSection.isVisible ? "animate-fadeInUp opacity-100" : "opacity-0 translate-y-8"
         }`}
       >

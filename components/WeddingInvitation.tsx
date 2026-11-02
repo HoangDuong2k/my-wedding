@@ -12,10 +12,13 @@ import {
     BANK_ACCOUNTS,
     CONFIGURATION,
     coupleInitials,
+    coupleOrder,
     type BankAccount,
     dayOfWeek,
     formatDate,
     guestMoment,
+    rsvpOptions,
+    type RsvpOption,
     type WeddingEvent,
 } from '@/constants/configuration'
 import { useScrollEffects } from '@/hooks/use-scroll-effects'
@@ -33,9 +36,10 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
         guestCount: '1',
         wishes: '',
     })
-    // Which ceremonies the guest will attend; preselected when the page shows only one
-    const defaultSlugs = events.length === 1 ? [events[0].slug] : []
-    const [attendingSlugs, setAttendingSlugs] = useState<string[]>(defaultSlugs)
+    // Which days the guest will attend; preselected when there is only one to choose
+    const options = rsvpOptions(events)
+    const defaultKeys = options.length === 1 ? [options[0].key] : []
+    const [attendingKeys, setAttendingKeys] = useState<string[]>(defaultKeys)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [submitError, setSubmitError] = useState('')
@@ -45,7 +49,10 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
     const guestSection = useScrollEffects({ threshold: 0.2 })
     const thankYouSection = useScrollEffects({ threshold: 0.3 })
 
-    const initials = coupleInitials()
+    // The bride's own invitation (/huong) puts her name first
+    const brideFirst = events.length === 1 && events[0].side === 'bride'
+    const [firstName, secondName] = coupleOrder(brideFirst)
+    const initials = coupleInitials(brideFirst)
     // Staggered entrance for hero content once the doors open
     const reveal = (delay: number) => ({
         className: `transition-all duration-1000 ease-out ${
@@ -74,9 +81,9 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
         e.preventDefault()
 
         const accepted = guestForm.attendance === 'yes'
-        const attending = events.filter((ev) => attendingSlugs.includes(ev.slug))
+        const attending = options.filter((o) => attendingKeys.includes(o.key))
         if (accepted && attending.length === 0) {
-            setSubmitError('Bạn chọn giúp mình lễ sẽ tham dự nhé')
+            setSubmitError('Bạn chọn giúp mình ngày sẽ tham dự nhé')
             return
         }
 
@@ -90,10 +97,9 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
         // Guest text is sent as Telegram Markdown, so its formatting characters must be escaped
         const escapeMd = (text: string) => text.replace(/([_*`[])/g, '\\$1')
 
-        const eventLine = (ev: WeddingEvent) => {
-            const m = guestMoment(ev)
-            const what = m === ev ? ev.title : `${ev.title} (${m.title})`
-            return `• ${what} - ${m.time} ${formatDate(m)} (/${ev.slug})`
+        const optionLine = ({ event, moment }: RsvpOption) => {
+            const what = moment === event ? event.title : `${moment.title} (${event.title})`
+            return `• ${what} - ${moment.time} ${dayOfWeek(moment)} ${formatDate(moment)}`
         }
 
         // Gửi thông báo sang Telegram
@@ -104,7 +110,7 @@ export default function WeddingInvitation({ events }: { events: WeddingEvent[] }
 
 👤 *Tên khách:* ${escapeMd(guestForm.name.trim())}
 ${accepted ? '✅ *Tham dự:* Có' : '❌ *Tham dự:* Không'}
-${accepted ? `📍 *Dự lễ:*\n${attending.map(eventLine).join('\n')}` : ''}
+${accepted ? `📍 *Ngày tham dự:*\n${attending.map(optionLine).join('\n')}` : ''}
 ${accepted ? `👥 *Số khách:* ${guestForm.guestCount}` : ''}
 ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.trim())}` : ''}
 
@@ -126,7 +132,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
                 guestCount: '1',
                 wishes: '',
             })
-            setAttendingSlugs(defaultSlugs)
+            setAttendingKeys(defaultKeys)
             setSubmitSuccess(true)
             setTimeout(() => setSubmitSuccess(false), 2000)
         } catch (telegramError) {
@@ -209,11 +215,11 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
                         className={`${reveal(600).className} mt-3 font-cormorant uppercase font-light tracking-[0.12em] text-3xl sm:text-5xl leading-tight`}
                     >
                         <span className='block'>
-                            {CONFIGURATION.groomFirst ? CONFIGURATION.groomName : CONFIGURATION.brideName}
+                            {firstName}
                         </span>
                         <span className='block font-great-vibes normal-case text-4xl sm:text-5xl'>&</span>
                         <span className='block'>
-                            {CONFIGURATION.groomFirst ? CONFIGURATION.brideName : CONFIGURATION.groomName}
+                            {secondName}
                         </span>
                     </h1>
 
@@ -284,7 +290,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
                 </div>
             </section>
 
-            <CoupleSection />
+            <CoupleSection brideFirst={brideFirst} />
 
             <EventsSection events={events} />
 
@@ -297,7 +303,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
             <section
                 ref={giftSection.elementRef}
                 id='gift'
-                className='py-20 px-6 paper-bg'
+                className='py-12 sm:py-16 px-6 paper-bg'
             >
                 <div className='max-w-3xl mx-auto text-center'>
                     <div
@@ -379,11 +385,11 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
             <section
                 ref={guestSection.elementRef}
                 id='guest'
-                className='py-20 px-6 bg-[#f6ecea]'
+                className='py-12 sm:py-16 px-6 bg-[#f6ecea]'
             >
                 <div className='max-w-2xl mx-auto'>
                     <div
-                        className={`text-center mb-12 transition-all duration-1000 ${
+                        className={`text-center mb-8 transition-all duration-1000 ${
                             guestSection.isVisible
                                 ? 'animate-slideInFromBottom opacity-100'
                                 : 'opacity-0 translate-y-12'
@@ -473,34 +479,34 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
                             {guestForm.attendance === 'yes' && (
                                 <div>
                                     <label className='block text-sm font-quicksand font-medium text-gray-700 mb-3'>
-                                        {events.length > 1
-                                            ? 'Bạn sẽ dự lễ nào? * (chọn được cả hai)'
+                                        {options.length > 1
+                                            ? 'Bạn sẽ tham dự ngày nào? * (có thể chọn nhiều)'
                                             : 'Địa điểm bạn sẽ tham dự'}
                                     </label>
                                     <div className='grid gap-3'>
-                                        {events.map((ev) => {
-                                            const checked = attendingSlugs.includes(ev.slug)
+                                        {options.map(({ key, event: ev, moment }) => {
+                                            const checked = attendingKeys.includes(key)
                                             return (
                                                 <label
-                                                    key={ev.slug}
+                                                    key={key}
                                                     className={`flex items-start gap-3 rounded-2xl border px-4 py-3 transition-colors ${
-                                                        events.length > 1 ? 'cursor-pointer' : ''
+                                                        options.length > 1 ? 'cursor-pointer' : ''
                                                     } ${
                                                         checked
                                                             ? 'border-rose-400 bg-rose-50/70'
                                                             : 'border-gray-200 bg-white/70 hover:border-rose-200'
                                                     }`}
                                                 >
-                                                    {events.length > 1 && (
+                                                    {options.length > 1 && (
                                                         <input
                                                             type='checkbox'
                                                             checked={checked}
                                                             onChange={() => {
                                                                 setSubmitError('')
-                                                                setAttendingSlugs((prev) =>
+                                                                setAttendingKeys((prev) =>
                                                                     checked
-                                                                        ? prev.filter((s) => s !== ev.slug)
-                                                                        : [...prev, ev.slug],
+                                                                        ? prev.filter((k) => k !== key)
+                                                                        : [...prev, key],
                                                                 )
                                                             }}
                                                             className='mt-1 w-4 h-4 accent-rose-500'
@@ -508,12 +514,11 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
                                                     )}
                                                     <span className='font-quicksand text-gray-700'>
                                                         <span className='font-semibold text-[#7a2a2a]'>
-                                                            {guestMoment(ev).title}
+                                                            {moment.title}
                                                         </span>{' '}
-                                                        · {guestMoment(ev).time} {dayOfWeek(guestMoment(ev))},{' '}
-                                                        {formatDate(guestMoment(ev))}
+                                                        · {moment.time} {dayOfWeek(moment)}, {formatDate(moment)}
                                                         <span className='block text-sm text-gray-500 mt-0.5'>
-                                                            {guestMoment(ev).venue ?? ev.venue} – {guestMoment(ev).address ?? ev.address}
+                                                            {moment.venue ?? ev.venue} – {moment.address ?? ev.address}
                                                         </span>
                                                     </span>
                                                 </label>
@@ -615,7 +620,7 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
             <section
                 ref={thankYouSection.elementRef}
                 id='thank-you'
-                className='pt-24 pb-12 px-6 paper-bg'
+                className='pt-20 pb-10 px-6 paper-bg'
             >
                 <div className='max-w-4xl mx-auto'>
                     <div
