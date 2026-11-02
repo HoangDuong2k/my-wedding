@@ -67,36 +67,21 @@ export default function EventsSection({ events }: { events: WeddingEvent[] }) {
 
     return (
         <section ref={elementRef} id='events' className='paper-bg py-12 sm:py-16 px-6'>
-            <div className='text-center mb-8'>
-                <h2 className='font-great-vibes text-5xl sm:text-6xl text-[#7a2a2a]'>
-                    {events.length > 1 ? 'Sự kiện cưới' : events[0].title}
-                </h2>
-            </div>
-
-            {/* Both families host the invitation */}
+            {/* Invitation wording, like the printed card */}
             <div
-                className={`max-w-xl mx-auto grid grid-cols-2 divide-x divide-[#d7b2b2] text-center mb-10 transition-all duration-1000 ${
+                className={`text-center mb-10 transition-all duration-1000 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
             >
-                {familyOrder.map((side) => {
-                    const family = FAMILIES[side]
-                    return (
-                        <div key={side} className='px-3'>
-                            <p className='font-quicksand uppercase tracking-[0.2em] text-xs text-[#9a5a5a]'>
-                                {family.label}
-                            </p>
-                            <p className='font-eb-garamond text-[#7a2a2a] mt-2 leading-snug'>
-                                Ông {family.father}
-                                <br />
-                                Bà {family.mother}
-                            </p>
-                            <p className='font-quicksand text-xs text-gray-500 mt-2 leading-relaxed'>
-                                {family.address}
-                            </p>
-                        </div>
-                    )
-                })}
+                <p className='font-eb-garamond uppercase tracking-[0.18em] text-sm sm:text-base text-[#7a5a5a]'>
+                    Trân trọng kính mời
+                </p>
+                <h2 className='font-great-vibes text-5xl sm:text-6xl text-[#7a2a2a] mt-3 mb-4'>Quý khách</h2>
+                <p className='font-eb-garamond uppercase tracking-[0.12em] text-sm sm:text-base text-[#7a5a5a] leading-relaxed'>
+                    Đến dự buổi tiệc chung vui cùng
+                    <br />
+                    gia đình chúng tôi
+                </p>
             </div>
 
             <div
@@ -145,6 +130,32 @@ export default function EventsSection({ events }: { events: WeddingEvent[] }) {
                         </a>
                     </div>
                 ))}
+            </div>
+
+            {/* Both families host the invitation */}
+            <div
+                className={`max-w-xl mx-auto grid grid-cols-2 divide-x divide-[#d7b2b2] text-center mt-12 transition-all duration-1000 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+            >
+                {familyOrder.map((side) => {
+                    const family = FAMILIES[side]
+                    return (
+                        <div key={side} className='px-3'>
+                            <p className='font-quicksand uppercase tracking-[0.2em] text-xs text-[#9a5a5a]'>
+                                {family.label}
+                            </p>
+                            <p className='font-eb-garamond text-[#7a2a2a] mt-2 leading-snug'>
+                                Ông {family.father}
+                                <br />
+                                Bà {family.mother}
+                            </p>
+                            <p className='font-quicksand text-xs text-gray-500 mt-2 leading-relaxed'>
+                                {family.address}
+                            </p>
+                        </div>
+                    )
+                })}
             </div>
 
             <p className='mt-10 text-center font-great-vibes text-3xl text-[#9f1239]'>
