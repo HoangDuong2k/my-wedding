@@ -96,7 +96,7 @@ export const EVENTS: WeddingEvent[] = [
                 lunarDate: 'Ngày 20 tháng 10 năm Bính Ngọ',
                 venue: 'Tư gia nhà trai',
                 address: 'Số 09, ngõ 17, đường Nguyễn Huy Tự, phường Thành Sen, tỉnh Hà Tĩnh',
-                mapUrl: 'https://www.google.com/maps/search/?api=1&query=09+ng%C3%B5+17+Nguy%E1%BB%85n+Huy+T%E1%BB%B1%2C+Th%C3%A0nh+Sen%2C+H%C3%A0+T%C4%A9nh',
+                mapUrl: 'https://maps.app.goo.gl/2vmYdpLQZF73tNK49',
             },
         ],
     },
