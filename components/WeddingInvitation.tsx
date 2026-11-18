@@ -616,47 +616,46 @@ ${guestForm.wishes?.trim() ? `💌 *Lời chúc:* ${escapeMd(guestForm.wishes.tr
                     </form>
                 </div>
             </section>
-            {/* Thank You Section */}
+            {/* Thank You Section: exactly one screen tall, like the hero. Everything is sized from the
+                photo height (--ph), which shrinks with short or narrow screens so the frame and title still fit. */}
             <section
                 ref={thankYouSection.elementRef}
                 id='thank-you'
-                className='pt-20 pb-10 px-6 paper-bg'
+                className='relative h-[100svh] flex items-center justify-center overflow-hidden px-6 paper-bg [--ph:min(540px,56svh,95vw)]'
             >
-                <div className='max-w-4xl mx-auto'>
-                    <div
-                        className={`relative flex flex-col items-center transition-all duration-1000 ${
-                            thankYouSection.isVisible
-                                ? 'animate-bounceIn opacity-100'
-                                : 'opacity-0 scale-90'
-                        }`}
-                    >
-                        {/* Floral background frame */}
+                <div
+                    className={`relative flex flex-col items-center transition-all duration-1000 ${
+                        thankYouSection.isVisible
+                            ? 'animate-bounceIn opacity-100'
+                            : 'opacity-0 scale-90'
+                    }`}
+                >
+                    {/* Floral background frame */}
+                    <Image
+                        src='/thankyou_flower_background.png'
+                        alt='Floral frame'
+                        className='z-10 pointer-events-none select-none absolute left-1/2 -translate-x-1/2 max-w-none w-[calc(var(--ph)*1.26)] h-[calc(var(--ph)*1.54)] top-[calc(var(--ph)*-0.26)]'
+                        aria-hidden
+                        width={680}
+                        height={830}
+                        quality={100}
+                    />
+                    {/* Arched photo */}
+                    <div className='relative h-[var(--ph)] w-[calc(var(--ph)*0.7)] rounded-[calc(var(--ph)*0.33)] overflow-hidden shadow-xl border-2 border-rose-300 bg-white'>
                         <Image
-                            src='/thankyou_flower_background.png'
-                            alt='Floral frame'
-                            className='z-10 pointer-events-none select-none w-[400px] h-[600px] -top-[90px]  sm:w-[680px] sm:h-[830px] sm:-top-[140px] max-w-full absolute left-1/2 -translate-x-1/2'
-                            aria-hidden
-                            width={680}
-                            height={830}
+                            src='/photos/thank-you.jpg'
+                            alt='Bride and Groom'
+                            className='w-full h-full object-cover'
+                            width={376}
+                            height={536}
                             quality={100}
                         />
-                        {/* Arched photo */}
-                        <div className='relative w-[300] h-[400px] rounded-[160px] sm:w-[380px] sm:h-[540px] sm:rounded-[180px]  overflow-hidden shadow-xl border-2 border-rose-300 bg-white'>
-                            <Image
-                                src='/photos/thank-you.jpg'
-                                alt='Bride and Groom'
-                                className='w-full h-full object-cover'
-                                width={376}
-                                height={536}
-                                quality={100}
-                            />
-                        </div>
-
-                        {/* Title */}
-                        <h3 className='mt-14 md:mt-18 text-[68px] leading-none md:text-[108px] font-eb-garamond text-[#7d4a4a] text-center'>
-                            Thank you!
-                        </h3>
                     </div>
+
+                    {/* Title */}
+                    <h3 className='mt-[calc(var(--ph)*0.13)] text-[calc(var(--ph)*0.2)] leading-none font-eb-garamond text-[#7d4a4a] text-center'>
+                        Thank you!
+                    </h3>
                 </div>
             </section>
             {/* Music */}
